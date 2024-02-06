@@ -2,6 +2,7 @@ import Home from "./pages/admin/home/Home";
 import Login from "./pages/admin/login/Login";
 import List from "./pages/admin/list/List";
 import Single from "./pages/admin/single/Single";
+import HomeCustomer from "./pages/customers/home/Home";
 import New from "./pages/admin/new/New";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { productInputs, userInputs } from "./formSource";
@@ -15,7 +16,7 @@ function App() {
     <div className={darkMode ? "app dark" : "app"}>
       <BrowserRouter>
         <Routes>
-          <Route path="/">
+          <Route path="/admin">
             <Route index element={<Home />} />
             <Route path="login" element={<Login />} />
             <Route path="users">
@@ -34,6 +35,9 @@ function App() {
                 element={<New inputs={productInputs} title="Add New Product" />}
               />
             </Route>
+          </Route>
+          <Route path="/" element = {<HomeCustomer />}>
+            <Route path="hotel" element={<Login />} />
           </Route>
         </Routes>
       </BrowserRouter>
