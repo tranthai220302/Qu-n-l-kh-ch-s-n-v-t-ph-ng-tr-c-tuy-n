@@ -6,6 +6,7 @@ import MailList from "../../../compoments/customer/mailList/MailList";
 import Navbar from "../../../compoments/customer/navbar/Navbar";
 import PropertyList from "../../../compoments/customer/propertyList/PropertyList";
 import Endow from "../../../compoments/customer/endow/Endow";
+import Favourite from "../../../compoments/customer/addressFavourite/Favourite";
 import "./home.css";
 
 const Home = () => {
@@ -22,9 +23,11 @@ const Home = () => {
         <PropertyList/>
         <h1 className="homeTitle">Khách sạn yêu thích</h1>
         <FeaturedProperties/>
-        <Footer/>
+        <h1 className="homeTitle">Các điểm đến được chúng tôi ưa thích</h1>
+        <Favourite />
       </div>
       <MailList/>
+      <Footer/>
     </div>
   );
 };
