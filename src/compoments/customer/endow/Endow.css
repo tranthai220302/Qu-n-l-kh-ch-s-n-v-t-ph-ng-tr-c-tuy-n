@@ -1,0 +1,26 @@
+.containerEndow{
+    width: 100%;
+    max-width: 1024px;
+}
+.endow{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+.endowItem{
+    height: 150px;
+    width: 50%;
+}
+.endowItem img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.endowItem{
+    position: relative;
+}
+.endowTitle{
+    position: absolute;
+    top: 0;
+}
