@@ -1,0 +1,27 @@
+.favourite{
+    width: 100%;
+    max-width: 1024px;
+    display: flex;
+    flex-direction: column;
+    margin-top: -20px;
+}
+.favourite ul {
+    display: flex;
+    list-style: none;
+    gap: 40px;
+    margin-left: -40px;
+}
+.favourite ul li {
+    border-radius: 40%;
+    font-weight: 600;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+.favourite ul li:hover {
+    background-color: rgb(247, 242, 242);
+}
+.select{
+    background-color: #f0f6fd;
+    border: 1px solid rgb(174, 174, 255);
+    color: #4178e4;
+}

@@ -1,3 +1,10 @@
+.containerFeature{
+  width: 100%;
+  max-width: 1024px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
 .featured{
   width: 100%;
   max-width: 1024px;
@@ -13,7 +20,8 @@
   border-radius: 10px;
   overflow: hidden;
   height: 250px;
-  flex:1
+  flex:1;
+  cursor: pointer;
 }
 
 .featuredImg{
@@ -24,6 +32,11 @@
 
 .featuredTitles{
   position: absolute;
-  bottom: 20px;
+  top: 0;
   left: 20px;
+}
+.title{
+  margin-top: -40px;
+  color: gray;
+  font-size: 15px;
 }

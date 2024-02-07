@@ -2,41 +2,66 @@ import "./featured.css";
 
 const Featured = () => {
   return (
-    <div className="featured">
-      <div className="featuredItem">
-        <img
-          src="https://cf.bstatic.com/xdata/images/city/max500/957801.webp?k=a969e39bcd40cdcc21786ba92826063e3cb09bf307bcfeac2aa392b838e9b7a5&o="
-          alt=""
-          className="featuredImg"
-        />
-        <div className="featuredTitles">
-          <h1>Dublin</h1>
-          <h2>123 properties</h2>
-        </div>
+    <div className="containerFeature">
+      <div className="title">
+        Các lựa chọn phổ biến nhất cho du khách từ Việt Nam
       </div>
-      
-      <div className="featuredItem">
-        <img
-          src="https://cf.bstatic.com/xdata/images/city/max500/690334.webp?k=b99df435f06a15a1568ddd5f55d239507c0156985577681ab91274f917af6dbb&o="
-          alt=""
-          className="featuredImg"
-        />
-        <div className="featuredTitles">
-          <h1>Reno</h1>
-          <h2>533 properties</h2>
+        <div className="featured">
+          <div className="featuredItem">
+              <img
+                src="https://shop.photozone.com.vn/wp-content/uploads/2015/02/nho-ngay-13-dia-diem-du-lich-sai-gon-chup-anh-dep-khong-ti-vet_photozone-com-vn-1.jpg"
+                alt=""
+                className="featuredImg"
+              />
+              <div className="featuredTitles">
+                <h2>TP. Hồ Chí Minh</h2>
+              </div>
+            </div>
+            
+            <div className="featuredItem">
+              <img
+                src="https://static.cand.com.vn/Files/Image/hoaithu/2018/11/10/2dfc8311-7e5b-4900-9113-cc73c7f829ce.JPG"
+                alt=""
+                className="featuredImg"
+              />
+              <div className="featuredTitles">
+                <h2>Đà Nẵng</h2>
+              </div>
+            </div>
         </div>
-      </div>
-      <div className="featuredItem">
-        <img
-          src="https://cf.bstatic.com/xdata/images/city/max500/689422.webp?k=2595c93e7e067b9ba95f90713f80ba6e5fa88a66e6e55600bd27a5128808fdf2&o="
-          alt=""
-          className="featuredImg"
-        />
-        <div className="featuredTitles">
-          <h1>Austin</h1>
-          <h2>532 properties</h2>
+        <div className="featured">
+          <div className="featuredItem">
+            <img
+              src="https://top10hue.vn/wp-content/uploads/2022/10/hinh-anh-hue-16.jpg"
+              alt=""
+              className="featuredImg"
+            />
+            <div className="featuredTitles">
+              <h2>Huế</h2>
+            </div>
+          </div>
+          
+          <div className="featuredItem">
+            <img
+              src="https://www.hanoistudio.vn/wp-content/uploads/2021/05/nhung-dia-diem-chup-anh-dep-o-ha-noi-24.jpeg"
+              alt=""
+              className="featuredImg"
+            />
+            <div className="featuredTitles">
+              <h2>Hà Nội</h2>
+            </div>
+          </div>
+          <div className="featuredItem">
+            <img
+              src="https://baocamau.vn/image/ckeditor/2023/20231012/images/4.jpg"
+              alt=""
+              className="featuredImg"
+            />
+            <div className="featuredTitles">
+              <h2>Cà Mau</h2>
+            </div>
+          </div>
         </div>
-      </div>
     </div>
   );
 };

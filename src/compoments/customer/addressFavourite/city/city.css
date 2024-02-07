@@ -1,0 +1,24 @@
+.city {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-gap: 15px;
+    margin-top: 20px;
+    width: 100%;
+    max-width: 1024px;
+}
+
+.cityItem {
+    display: flex;
+    flex-direction: column;
+}
+  
+.name {
+    font-weight: 500;
+    font-size: 14px;
+}
+
+.number {
+    color: #666;
+    font-size: 12px;
+}
+  
