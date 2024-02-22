@@ -1,0 +1,29 @@
+.numPageContainer{
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 10px;
+}
+.numberItem{
+    border: 1px solid rgb(186, 182, 182);
+    padding: 2px 6px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: 400;
+}
+.numberItem:hover{
+    background-color: rgb(189, 186, 186);
+    border: 1px solid rgb(73, 69, 69);
+}
+.numberItemSelect{
+    background-color: rgb(72, 72, 72);
+    border: 1px solid rgb(23, 23, 23);
+    padding: 2px 6px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: 400;
+    color: white;
+}

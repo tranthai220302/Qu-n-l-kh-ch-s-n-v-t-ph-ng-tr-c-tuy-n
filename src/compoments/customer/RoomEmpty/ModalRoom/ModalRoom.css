@@ -1,0 +1,85 @@
+.modalRoom{
+    display: flex;
+    justify-content: space-around;
+}
+.roomDesc{
+    width: 45%;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+.serRoom{
+    list-style: none;
+    margin-left: 0;
+    padding-left: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 3px;
+}
+.serItem1{
+    display: flex;
+    align-items: center;
+    font-size: 12px;
+    margin-left: 5px;
+}
+.roamRoom1{
+    display: flex;
+    flex-wrap: wrap;
+    list-style-type: none;
+    padding: 0;
+    gap: 10px;
+    padding-top: 10px;
+    width: 80%;
+}
+.roamItem1{
+    display: inline-block;
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+}
+.slider1{
+    position: sticky;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.613);
+    z-index: 999;
+    display: flex;
+    align-items: center;
+  }
+  
+  .sliderWrapper1{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .sliderImg1{
+    width: 80%;
+    height: 80vh;
+  }
+  
+  .close1{
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 30px;
+    color: lightgray;
+    cursor: pointer;
+  }
+  
+  .arrow1{
+    margin: 20px;
+    font-size: 50px;
+    color: lightgray;
+    cursor: pointer;
+  }
+  .priceTotal{
+    display: flex;
+    justify-content: flex-end;
+    font-weight: 700;
+    color: green;
+  }

@@ -1,0 +1,16 @@
+.containerUsually{
+    width: 1024px;
+    display: flex;
+    margin-top: 40px;
+    gap: 5px;
+    background-color: #ebf3ff;
+}
+.titel{
+    height: 100%;
+    background-color: #ebf3ff;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    text-align: left;
+    width: 25%;
+}

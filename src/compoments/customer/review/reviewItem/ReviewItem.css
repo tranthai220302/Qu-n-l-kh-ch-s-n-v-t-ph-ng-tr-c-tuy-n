@@ -1,0 +1,9 @@
+.linkReview{
+    font-size: 13px;
+    color: #99c6e6;
+    cursor: pointer;
+    font-weight: 400;
+}
+.linkReview:hover{
+    text-decoration: underline;
+}

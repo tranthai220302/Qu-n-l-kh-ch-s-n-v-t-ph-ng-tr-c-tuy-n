@@ -1,0 +1,101 @@
+.reviewContainer{
+    width: 1024px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.totalReview{
+    display: flex;
+    gap: 10px;
+    cursor: pointer;
+    align-items: center;
+}
+.numberPoint{
+    background-color: #003580;
+    padding: 5px;
+    color: white;
+    font-weight: 500;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+.numberTotal{
+    color: gray;
+    font-weight: 500;
+}
+.allReview{
+    font-size: 14px;
+    color: #5fa6d8;
+    text-align: center;
+}
+.allReview:hover{
+    text-decoration: underline;
+}
+.descReview{
+    color: rgb(57, 56, 56);
+    font-weight: 500;
+}
+.progress1 {
+    /* Không cần thiết */
+    width: 100%;
+}
+.reviewContent{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+.progress-bar-container {
+    display: inline-block;
+    width: calc(30% - 10px); /* Chiều rộng của mỗi thanh tiến trình, trừ đi khoảng cách giữa chúng */
+    margin-right: 16px; /* Khoảng cách giữa các thanh tiến trình */
+    margin-top: 10px;
+}
+.progress-bar-container>span{
+    font-size: 14px;
+    font-weight: 500;   
+}
+.progressTitle{
+    display: flex;
+    margin-bottom: 5px;
+    justify-content: space-between;
+}
+.progressTitle>span{
+    font-size: 14px;
+    font-weight: 500;
+}
+.listSelect{
+    display: flex;
+    align-items: center;
+    list-style: none;
+    gap: 20px;
+    margin-left: 0;
+    padding-left: 0;
+}
+.selectItem{
+    display: flex;
+    align-items: center;
+    border: 1px solid gray;
+    cursor: pointer;
+    padding: 5px 12px;
+    border-radius: 45%;
+    gap: 4px;
+}
+.selectItem>span{
+    font-size: 14px;
+    font-weight: 500;
+}
+.listReview{
+    width: 1024px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 10px;
+    padding-left: 0;
+    margin-left: 0;
+}
+.swiper-slide {
+    margin-bottom: 35px;
+  }
+
+
+

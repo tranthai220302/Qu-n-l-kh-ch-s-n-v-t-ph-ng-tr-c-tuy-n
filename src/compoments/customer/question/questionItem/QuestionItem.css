@@ -1,0 +1,12 @@
+.userQuestion{
+    display: flex;
+    gap: 10px;
+    font-weight: 600;
+    color:  black;
+}
+.userFeedBack{
+    display: flex;
+    gap: 10px;
+    font-size: 14px;
+    margin-top: 20px;
+}

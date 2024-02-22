@@ -8,9 +8,9 @@ import Table from "../../../compoments/admin/table/Table";
 
 const Home = () => {
   return (
-    <div className="home">
+    <div className="home1">
       <Sidebar />
-      <div className="homeContainer">
+      <div className="homeContainer1">
         <Navbar />
         <div className="widgets">
           <Widget type="user" />
@@ -22,8 +22,8 @@ const Home = () => {
           <Featured />
           <Chart title="Last 6 Months (Revenue)" aspect={2 / 1} />
         </div>
-        <div className="listContainer">
-          <div className="listTitle">Latest Transactions</div>
+        <div className="listContainer1">
+          <div className="listTitle1">Latest Transactions</div>
           <Table />
         </div>
       </div>

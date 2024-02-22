@@ -1,0 +1,28 @@
+.checkin{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.hours{
+    font-size: 15px;
+    font-weight: 300;
+}
+.descChildren{
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+.CS{
+    width: 80%;
+    border: 1px solid rgb(215, 210, 210);
+    border-radius: 5px;
+    padding: 10px 10px;
+}
+.CSItem{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    border-top: 1px solid rgb(215, 210, 210);
+    padding-top: 10px;
+    margin-top: 10px;
+}
