@@ -14,7 +14,6 @@ import "react-date-range/dist/styles.css"; // main css file
 import "react-date-range/dist/theme/default.css"; // theme css file
 import { format } from "date-fns";
 import { useNavigate } from "react-router-dom";
-
 const Header = ({ type }) => {
   const [destination, setDestination] = useState("");
   const [openDate, setOpenDate] = useState(false);
@@ -54,40 +53,34 @@ const Header = ({ type }) => {
           type === "list" ? "headerContainer listMode" : "headerContainer"
         }
       >
-        <div className="headerList">
+        <div className="headerList1">
           <div className="headerListItem active">
             <FontAwesomeIcon icon={faBed} />
-            <span>Stays</span>
+            <span>Lưu trú</span>
           </div>
           <div className="headerListItem">
             <FontAwesomeIcon icon={faPlane} />
-            <span>Flights</span>
+            <span>Chuyến bay</span>
           </div>
           <div className="headerListItem">
             <FontAwesomeIcon icon={faCar} />
-            <span>Car rentals</span>
+            <span>Thuê xe</span>
           </div>
           <div className="headerListItem">
             <FontAwesomeIcon icon={faBed} />
-            <span>Attractions</span>
+            <span>Khách sạn</span>
           </div>
           <div className="headerListItem">
             <FontAwesomeIcon icon={faTaxi} />
-            <span>Airport taxis</span>
+            <span>Taxi sân bay</span>
           </div>
         </div>
         {type !== "list" && (
-          <>
-            <h1 className="headerTitle">
-              A lifetime of discounts? It's Genius.
-            </h1>
-            <p className="headerDesc">
-              Get rewarded for your travels – unlock instant savings of 10% or
-              more with a free Lamabooking account
-            </p>
-            <button className="headerBtn">Sign in / Register</button>
+          <div className="conta">
+            <span className="sea">Tìm chỗ nghỉ tiếp theo</span>
+            <span className="descSea">Tìm ưu đãi khách sạn, chỗ nghỉ dạng nhà và nhiều hơn nữa...</span>
             <div className="headerSearch">
-              <div className="headerSearchItem">
+              <div className="headerSearchItem1">
                 <FontAwesomeIcon icon={faBed} className="headerIcon" />
                 <input
                   type="text"
@@ -96,7 +89,7 @@ const Header = ({ type }) => {
                   onChange={(e) => setDestination(e.target.value)}
                 />
               </div>
-              <div className="headerSearchItem">
+              <div className="headerSearchItem2">
                 <FontAwesomeIcon icon={faCalendarDays} className="headerIcon" />
                 <span
                   onClick={() => setOpenDate(!openDate)}
@@ -116,7 +109,7 @@ const Header = ({ type }) => {
                   />
                 )}
               </div>
-              <div className="headerSearchItem">
+              <div className="headerSearchItem3">
                 <FontAwesomeIcon icon={faPerson} className="headerIcon" />
                 <span
                   onClick={() => setOpenOptions(!openOptions)}
@@ -190,13 +183,11 @@ const Header = ({ type }) => {
                   </div>
                 )}
               </div>
-              <div className="headerSearchItem">
-                <button className="headerBtn" onClick={handleSearch}>
+              <div className="headerSearchItem4" onClick={handleSearch}>
                   Search
-                </button>
               </div>
             </div>
-          </>
+          </div>
         )}
       </div>
     </div>

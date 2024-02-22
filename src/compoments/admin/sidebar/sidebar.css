@@ -5,14 +5,14 @@
   background-color: white;
 }
 
-.sidebar .top {
+.sidebar .topSideBar {
   height: 50px;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.sidebar .top .logo {
+.sidebar .topSideBar .logo {
   font-size: 20px;
   font-weight: bold;
   color: #6439ff;

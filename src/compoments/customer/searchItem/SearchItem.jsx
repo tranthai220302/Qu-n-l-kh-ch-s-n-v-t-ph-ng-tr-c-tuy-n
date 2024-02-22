@@ -1,5 +1,5 @@
+import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom';
 import "./searchItem.css";
-
 const SearchItem = () => {
   return (
     <div className="searchItem">
@@ -31,7 +31,9 @@ const SearchItem = () => {
         <div className="siDetailTexts">
           <span className="siPrice">$112</span>
           <span className="siTaxOp">Includes taxes and fees</span>
-          <button className="siCheckButton">See availability</button>
+          <Link to='/hotels/1'>
+            <button className="siCheckButton">See availability</button>
+          </Link>
         </div>
       </div>
     </div>

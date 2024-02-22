@@ -1,0 +1,21 @@
+.navCountryContainer{
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    gap: 3px;
+}
+.iconNav{
+    text-align: center;
+    font-size: 20px;
+    margin-top: 3px;
+}
+.navCountryContainer span{
+    text-align: center;
+    font-size: 13px;
+    color: dodgerblue;
+    cursor: pointer;
+}
+.navCountryContainer span:hover{
+    border-bottom: 1px solid dodgerblue;
+}

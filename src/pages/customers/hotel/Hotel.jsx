@@ -3,7 +3,10 @@ import Navbar from "../../../compoments/customer/navbar/Navbar";
 import Header from "../../../compoments/customer/header/Header";
 import MailList from "../../../compoments/customer/mailList/MailList";
 import Footer from "../../../compoments/customer/footer/Footer";
+import PoolIcon from '@mui/icons-material/Pool';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Favourite from "../../../compoments/customer/addressFavourite/Favourite";
+import FeaturedProperties from "../../../compoments/customer/featuredProperties/FeaturedProperties";
 import {
   faCircleArrowLeft,
   faCircleArrowRight,
@@ -11,11 +14,20 @@ import {
   faLocationDot,
 } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
-
+import RoomEmpty from "../../../compoments/customer/RoomEmpty/RoomEmpty";
+import Review from "../../../compoments/customer/review/Review";
+import Question from "../../../compoments/customer/question/Question";
+import Services from "../../../compoments/customer/services/Services";
+import Rule from "../../../compoments/customer/rule/Rule";
+import QuestionUsually from "../../../compoments/customer/questionUsually/QuestionUsually";
+import { useRef } from "react";
 const Hotel = () => {
   const [slideNumber, setSlideNumber] = useState(0);
   const [open, setOpen] = useState(false);
-
+  const roomEmptyRef = useRef(null);
+  const handleBookNowClick = () => {
+    roomEmptyRef.current.scrollIntoView({ behavior: 'smooth' });
+  };
   const photos = [
     {
       src: "https://cf.bstatic.com/xdata/images/hotel/max1280x900/261707778.jpg?k=56ba0babbcbbfeb3d3e911728831dcbc390ed2cb16c51d88159f82bf751d04c6&o=&hp=1",
@@ -82,7 +94,7 @@ const Hotel = () => {
           </div>
         )}
         <div className="hotelWrapper">
-          <button className="bookNow">Reserve or Book Now!</button>
+          <button className="bookNow" onClick={handleBookNowClick}>Reserve or Book Now!</button>
           <h1 className="hotelTitle">Tower Street Apartments</h1>
           <div className="hotelAddress">
             <FontAwesomeIcon icon={faLocationDot} />
@@ -108,20 +120,58 @@ const Hotel = () => {
           </div>
           <div className="hotelDetails">
             <div className="hotelDetailsTexts">
-              <h1 className="hotelTitle">Stay in the heart of City</h1>
               <p className="hotelDesc">
-                Located a 5-minute walk from St. Florian's Gate in Krakow, Tower
-                Street Apartments has accommodations with air conditioning and
-                free WiFi. The units come with hardwood floors and feature a
-                fully equipped kitchenette with a microwave, a flat-screen TV,
-                and a private bathroom with shower and a hairdryer. A fridge is
-                also offered, as well as an electric tea pot and a coffee
-                machine. Popular points of interest near the apartment include
-                Cloth Hall, Main Market Square and Town Hall Tower. The nearest
-                airport is John Paul II International Kraków–Balice, 16.1 km
-                from Tower Street Apartments, and the property offers a paid
-                airport shuttle service.
+              Tọa lạc ở Hạ Long, cách Bãi Cháy 7 phút đi bộ, Sunland Halong Hotel and Restaurant cung cấp chỗ nghỉ có hồ bơi ngoài trời, chỗ đậu xe riêng miễn phí, khu vườn và phòng chờ chung. Chỗ nghỉ này có các tiện nghi như sân hiên, nhà hàng và quầy bar. Chỗ nghỉ cung cấp lễ tân 24/24, dịch vụ đưa đón sân bay, bếp chung và Wi-Fi miễn phí ở toàn bộ chỗ nghỉ.
+
+              Các phòng tại khách sạn được trang bị điều hòa, khu vực ghế ngồi, TV màn hình phẳng có truyền hình vệ tinh, két an toàn, phòng tắm riêng, vòi xịt/chậu rửa vệ sinh, đồ vệ sinh cá nhân miễn phí và máy sấy tóc. Tất cả các phòng có ấm đun nước, trong đó một số phòng có ban công và một số khác thì nhìn ra thành phố. Tại Sunland Halong Hotel and Restaurant, tất cả các phòng đều được thiết kế có ga trải giường và khăn tắm.
+
+              Hằng ngày, chỗ nghỉ có các lựa chọn thực đơn buffet, thực đơn à la carte hoặc kiểu lục địa cho bữa sáng.
+
+              Chỗ nghỉ có BBQ.
+
+              Sunland Halong Hotel and Restaurant cách Cáp treo Nữ Hoàng 1.8 km và Trung tâm thương mại Vincom Hạ Long 8.4 km. Sân bay gần nhất là Sân bay Quốc tế Cát Bi, cách khách sạn 42 km.
+
+              Các cặp đôi đặc biệt thích địa điểm này — họ cho điểm 8,8 cho kỳ nghỉ dành cho 2 người.
               </p>
+              <h4>Các tiện nghi được yêu chuộng nhất</h4>
+              <ul className="services">
+                <li className="servicesItem">
+                  <PoolIcon  style={{color: 'rgb(83, 196, 83)'}} />
+                  <p>Hồ bơi ngoài trời</p>
+                </li>
+                <li className="servicesItem">
+                  <PoolIcon style={{color: 'rgb(83, 196, 83)'}} />
+                  <p>Hồ bơi ngoài trời</p>
+                </li>
+                <li className="servicesItem">
+                  <PoolIcon style={{color: 'rgb(83, 196, 83)'}} />
+                  <p>Hồ bơi ngoài trời</p>
+                </li>
+                <li className="servicesItem">
+                  <PoolIcon style={{color: 'rgb(83, 196, 83)'}} />
+                  <p>Hồ bơi ngoài trời</p>
+                </li>
+                <li className="servicesItem">
+                  <PoolIcon style={{color: 'rgb(83, 196, 83)'}} />
+                  <p>Hồ bơi ngoài trời</p>
+                </li>
+                <li className="servicesItem">
+                  <PoolIcon style={{color: 'rgb(83, 196, 83)'}} />
+                  <p>Hồ bơi ngoài trời</p>
+                </li>
+                <li className="servicesItem">
+                  <PoolIcon style={{color: 'rgb(83, 196, 83)'}} />
+                  <p>Hồ bơi ngoài trời</p>
+                </li>
+                <li className="servicesItem">
+                  <PoolIcon style={{color: 'rgb(83, 196, 83)'}} />
+                  <p>Hồ bơi ngoài trời</p>
+                </li>
+                <li className="servicesItem">
+                  <PoolIcon style={{color: 'rgb(83, 196, 83)'}} />
+                  <p>Hồ bơi ngoài trời</p>
+                </li>
+              </ul>
             </div>
             <div className="hotelDetailsPrice">
               <h1>Perfect for a 9-night stay!</h1>
@@ -132,13 +182,24 @@ const Hotel = () => {
               <h2>
                 <b>$945</b> (9 nights)
               </h2>
-              <button>Reserve or Book Now!</button>
+              <button onClick={handleBookNowClick}>Reserve or Book Now!</button>
             </div>
           </div>
         </div>
-        <MailList />
-        <Footer />
+        <div ref={roomEmptyRef}>
+        <RoomEmpty />
+        </div>
+        <Review/>
+        <Question />
+        <Services/>
+        <Rule/>
+        <QuestionUsually />
+        <h2 className="homeTitle">Các phòng khác của khách sạn</h2>
+        <FeaturedProperties/>
       </div>
+      <MailList />
+      <Footer />
+
     </div>
   );
 };

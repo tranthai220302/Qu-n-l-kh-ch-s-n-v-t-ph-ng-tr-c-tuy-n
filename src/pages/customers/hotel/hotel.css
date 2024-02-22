@@ -149,3 +149,19 @@
   color: lightgray;
   cursor: pointer;
 }
+.services{
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  grid-gap: 0px;
+  width: 100%;
+  padding-left: 0;
+}
+.servicesItem{
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.servicesItem>p{
+  font-size: 14px;
+}

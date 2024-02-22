@@ -29,6 +29,7 @@ const Home = () => {
       <MailList/>
       <Footer/>
     </div>
+
   );
 };
 

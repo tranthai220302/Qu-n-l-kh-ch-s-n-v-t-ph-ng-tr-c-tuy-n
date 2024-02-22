@@ -1,6 +1,7 @@
 import Home from "./pages/admin/home/Home";
 import Login from "./pages/admin/login/Login";
 import List from "./pages/admin/list/List";
+import ListCustomer from "./pages/customers/list/List";
 import Single from "./pages/admin/single/Single";
 import HomeCustomer from "./pages/customers/home/Home";
 import New from "./pages/admin/new/New";
@@ -9,6 +10,9 @@ import { productInputs, userInputs } from "./formSource";
 import "./style/dark.css";
 import { useContext } from "react";
 import { DarkModeContext } from "./context/darkModeContext";
+import Hotel from "./pages/customers/hotel/Hotel";
+import LoginCustomer from "./pages/customers/login/Login";
+import RegisterCustomer from "./pages/customers/register/Register";
 function App() {
   const { darkMode } = useContext(DarkModeContext);
 
@@ -36,9 +40,11 @@ function App() {
               />
             </Route>
           </Route>
-          <Route path="/" element = {<HomeCustomer />}>
-            <Route path="hotel" element={<Login />} />
-          </Route>
+          <Route path="/" element={<HomeCustomer />} />
+          <Route path="/hotels" element={<ListCustomer />} />
+          <Route path="/hotels/:id" element={<Hotel />} />
+          <Route path="/login" element={<LoginCustomer />} />
+          <Route path="/register" element={<RegisterCustomer />} />
         </Routes>
       </BrowserRouter>
     </div>
