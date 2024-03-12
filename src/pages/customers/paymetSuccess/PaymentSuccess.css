@@ -1,0 +1,92 @@
+.paymentSuccess{
+    width: 1024px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: auto;
+    align-items: center;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    gap: 30px;
+}
+.modalSuccess{
+    display: flex;
+    flex-direction: column;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    padding: 20px;
+    border-radius: 5px;
+    align-items: center;
+}
+.nameSuccess{
+    width: 80%;
+}
+.titleSuccess{
+    display: flex;
+    gap: 150px;
+}
+.invoice-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    border-radius: 8px;
+    font-family: Arial, sans-serif;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+}
+.invoice-header{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.invoice-header h2 {
+    font-size: 24px;
+    color: #333;
+}
+
+.invoice-header p {
+    font-size: 14px;
+    color: #666;
+}
+
+.invoice-details {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    gap: 50px;
+}
+
+.invoice-section {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    font-size: 15px;
+}
+
+.invoice-section h3 {
+    font-size: 20px;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.invoice-section p {
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 8px;
+}
+
+.invoice-total {
+    margin-top: 20px;
+    text-align: right;
+}
+
+.invoice-total h3 {
+    font-size: 20px;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.invoice-total p {
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 8px;
+}

@@ -1,6 +1,5 @@
 import React from 'react';
 import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
-import { useJsApiLoader } from '@react-google-maps/api';
 const MapContainer = ({ location }) => {
     const mapStyles = {
         height: "150px",
@@ -15,15 +14,7 @@ const MapContainer = ({ location }) => {
     };
 
     return (
-        <LoadScript googleMapsApiKey="AIzaSyBmBRnE3W0ELQgwsIfLKKEEI2YRcOv3xnA">
-            <GoogleMap  
-                mapContainerStyle={mapStyles}
-                zoom={13}
-                center={defaultCenter}
-            >
-                <Marker position={defaultCenter} />
-            </GoogleMap>
-        </LoadScript>
+        <div><img src="https://toquoc.mediacdn.vn/280518851207290880/2022/10/31/tfisg1c-166720423465128148766.png" alt="" style={{height : '150px', width: '266px', marginBottom : '10px'}}/></div>
     );
 };
 

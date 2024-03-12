@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -13,6 +13,13 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import HomeIcon from '@mui/icons-material/Home';
+import newRequest from '../../../ults/newRequest';
+import { faL } from '@fortawesome/free-solid-svg-icons';
+import CircularProgress from '@mui/material/CircularProgress';
+import LinearWithValueLabel from '../../../compoments/linear/Linear';
+import Snackbar from '@mui/material/Snackbar';
+import { useNavigate } from 'react-router-dom';
+let Chatra = require('@chatra/chatra')
 function Copyright(props) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
@@ -25,23 +32,58 @@ function Copyright(props) {
     </Typography>
   );
 }
-
-// TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();
 
 export default function LoginCustomer() {
+  const navigate = useNavigate()
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(false)
+  const [user, setUser] = useState(null);
+  const [state, setState] = React.useState({
+    open: false,
+    vertical: 'top',
+    horizontal: 'right',
+  });
+  const { vertical, horizontal, open } = state;
+  const handleClose = () => {
+    setState({ ...state, open: false });
+  };
   const handleSubmit = (event) => {
+    setIsLoading(true);
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
+    newRequest.post('/auth/login', {
+      email : data.get('email'),
+      password : data.get('password')
+    }).then((res)=>{
+        setIsLoading(false)
+        setError(false)
+        setUser(res.data)
+        localStorage.setItem('currentUser', JSON.stringify(res.data))
+        navigate('/')
+    }).catch((error)=>{
+      setIsLoading(false);
+      setError(error.response.data)
+      setState({
+        open: true,
+        vertical: 'top',
+        horizontal: 'right',
+      })
+    })
   };
-
   return (
     <ThemeProvider theme={defaultTheme}>
-      <Grid container component="main" style={{ height: '100vh' }}>
+      <Snackbar 
+        anchorOrigin={{ vertical, horizontal }}
+        open={open}
+        onClose={handleClose}
+        message={error}
+        key={vertical + horizontal}
+      />
+      <Grid container component="main" style={{ height: '100vh', position: 'relative' }}>
+      <div  style={{position: 'absolute', top : '0', width :'100%'}}>
+      {isLoading && <LinearWithValueLabel isLoading={isLoading}/>}
+      </div>
         <CssBaseline />
         <Grid
           item
@@ -72,7 +114,7 @@ export default function LoginCustomer() {
               <LockOutlinedIcon />
             </Avatar>
             <Typography component="h1" variant="h5">
-              Sign in
+              Đăng nhập
             </Typography>
             <Box component="form" noValidate onSubmit={handleSubmit} style={{ mt: 1 }}>
               <TextField
@@ -103,9 +145,9 @@ export default function LoginCustomer() {
                 type="submit"
                 fullWidth
                 variant="contained"
-                style={{ marginTop: 25, marginBottom: 20 }}
+                style={{ marginTop: 25, marginBottom: 20}}
               >
-                Sign In
+                Đăng nhập
               </Button>
               <Grid container>
                 <Grid item xs>
@@ -115,7 +157,7 @@ export default function LoginCustomer() {
                 </Grid>
                 <Grid item>
                   <Link href="/register" variant="body2">
-                    {"Don't have an account? Sign Up"}
+                    {"Bạn chưa có tài khoản ? Đăng ký"}
                   </Link>
                 </Grid>
               </Grid>

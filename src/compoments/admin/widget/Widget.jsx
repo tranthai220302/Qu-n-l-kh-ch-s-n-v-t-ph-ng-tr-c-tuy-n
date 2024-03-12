@@ -5,7 +5,7 @@ import AccountBalanceWalletOutlinedIcon from "@mui/icons-material/AccountBalance
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import MonetizationOnOutlinedIcon from "@mui/icons-material/MonetizationOnOutlined";
 
-const Widget = ({ type }) => {
+const Widget = ({ type, number }) => {
   let data;
 
   //temporary
@@ -13,11 +13,11 @@ const Widget = ({ type }) => {
   const diff = 20;
 
   switch (type) {
-    case "user":
+    case "customer":
       data = {
-        title: "USERS",
+        title: "Khách hàng",
         isMoney: false,
-        link: "See all users",
+        link: "Xem tất cả",
         icon: (
           <PersonOutlinedIcon
             className="icon"
@@ -29,11 +29,11 @@ const Widget = ({ type }) => {
         ),
       };
       break;
-    case "order":
+    case "hotelOwner":
       data = {
-        title: "ORDERS",
+        title: "Chủ khách sạn",
         isMoney: false,
-        link: "View all orders",
+        link: "Xem tất cả",
         icon: (
           <ShoppingCartOutlinedIcon
             className="icon"
@@ -45,11 +45,11 @@ const Widget = ({ type }) => {
         ),
       };
       break;
-    case "earning":
+    case "hotel":
       data = {
-        title: "EARNINGS",
+        title: "Khách sạn",
         isMoney: true,
-        link: "View net earnings",
+        link: "Xem tất cả",
         icon: (
           <MonetizationOnOutlinedIcon
             className="icon"
@@ -58,11 +58,11 @@ const Widget = ({ type }) => {
         ),
       };
       break;
-    case "balance":
+    case "booking":
       data = {
-        title: "BALANCE",
+        title: "Booking 7 ngày qua",
         isMoney: true,
-        link: "See details",
+        link: "Xem chi tiết",
         icon: (
           <AccountBalanceWalletOutlinedIcon
             className="icon"
@@ -83,7 +83,7 @@ const Widget = ({ type }) => {
       <div className="left">
         <span className="titleAdmin">{data.title}</span>
         <span className="counter">
-          {data.isMoney && "$"} {amount}
+          {number}
         </span>
         <span className="link">{data.link}</span>
       </div>

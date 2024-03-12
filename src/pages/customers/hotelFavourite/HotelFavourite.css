@@ -1,0 +1,28 @@
+.containerHotelFav{
+    width: 1024px;
+    display: flex;
+    margin: auto;
+    flex-direction: column;
+    gap: 10px;
+}
+.headerHotelFav{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    border-bottom: 1px solid rgb(209, 209, 209);
+    padding-bottom: 20px;
+}
+.listHotelFav{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 13px;
+}
+.towLine{
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    height: 4rem; /* Điều chỉnh kích thước theo ý muốn */
+}
+

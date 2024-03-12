@@ -13,7 +13,7 @@ import {
   faCircleXmark,
   faLocationDot,
 } from "@fortawesome/free-solid-svg-icons";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import RoomEmpty from "../../../compoments/customer/RoomEmpty/RoomEmpty";
 import Review from "../../../compoments/customer/review/Review";
 import Question from "../../../compoments/customer/question/Question";
@@ -21,33 +21,60 @@ import Services from "../../../compoments/customer/services/Services";
 import Rule from "../../../compoments/customer/rule/Rule";
 import QuestionUsually from "../../../compoments/customer/questionUsually/QuestionUsually";
 import { useRef } from "react";
+import { useParams } from 'react-router-dom';
+import newRequest from "../../../ults/newRequest";
+import Skeleton from '@mui/material/Skeleton';
+import Rating from '@mui/material/Rating';
+import ModalImg from "./ModalImg/ModalImg";
+import PropTypes from 'prop-types';
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
+import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
+
 const Hotel = () => {
+  const { id } = useParams();
   const [slideNumber, setSlideNumber] = useState(0);
   const [open, setOpen] = useState(false);
+  const [data, setData] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(false);
   const roomEmptyRef = useRef(null);
+  const revieeRef = useRef(null);
+  const questionRef = useRef(null);
+  const ruleRef = useRef(null);
+  const itemRef = useRef(null);
+  const endRef = useRef(null);
+  const homeRef = useRef(null)
+  const [value, setValue] = useState(0);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 0) {
+        setIsScrolled(true);
+      } else {
+        setIsScrolled(false);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+
+    // Cleanup
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
+
   const handleBookNowClick = () => {
     roomEmptyRef.current.scrollIntoView({ behavior: 'smooth' });
   };
-  const photos = [
-    {
-      src: "https://cf.bstatic.com/xdata/images/hotel/max1280x900/261707778.jpg?k=56ba0babbcbbfeb3d3e911728831dcbc390ed2cb16c51d88159f82bf751d04c6&o=&hp=1",
-    },
-    {
-      src: "https://cf.bstatic.com/xdata/images/hotel/max1280x900/261707367.jpg?k=cbacfdeb8404af56a1a94812575d96f6b80f6740fd491d02c6fc3912a16d8757&o=&hp=1",
-    },
-    {
-      src: "https://cf.bstatic.com/xdata/images/hotel/max1280x900/261708745.jpg?k=1aae4678d645c63e0d90cdae8127b15f1e3232d4739bdf387a6578dc3b14bdfd&o=&hp=1",
-    },
-    {
-      src: "https://cf.bstatic.com/xdata/images/hotel/max1280x900/261707776.jpg?k=054bb3e27c9e58d3bb1110349eb5e6e24dacd53fbb0316b9e2519b2bf3c520ae&o=&hp=1",
-    },
-    {
-      src: "https://cf.bstatic.com/xdata/images/hotel/max1280x900/261708693.jpg?k=ea210b4fa329fe302eab55dd9818c0571afba2abd2225ca3a36457f9afa74e94&o=&hp=1",
-    },
-    {
-      src: "https://cf.bstatic.com/xdata/images/hotel/max1280x900/261707389.jpg?k=52156673f9eb6d5d99d3eed9386491a0465ce6f3b995f005ac71abc192dd5827&o=&hp=1",
-    },
-  ];
+  const handleReviewClick = () => {
+    revieeRef.current.scrollIntoView({ behavior: 'smooth' });
+  };
 
   const handleOpen = (i) => {
     setSlideNumber(i);
@@ -65,136 +92,198 @@ const Hotel = () => {
 
     setSlideNumber(newSlideNumber)
   };
-
+  const getData = () =>{
+    setIsLoading(true);
+    newRequest.get(`/hotel/${id}`).then((res)=>{
+      setIsLoading(false);
+      setError(false);
+      setData(res.data)
+      console.log(res.data);
+    }).catch((error)=>{
+      setIsLoading(false);
+      setError(error.response.data);
+      console.log(error.response.data)
+    })
+  }
+  useEffect(()=>{
+    getData();
+  }, [])
   return (
     <div>
       <Navbar />
       <Header type="list" />
       <div className="hotelContainer">
-        {open && (
-          <div className="slider">
-            <FontAwesomeIcon
-              icon={faCircleXmark}
-              className="close"
-              onClick={() => setOpen(false)}
-            />
-            <FontAwesomeIcon
-              icon={faCircleArrowLeft}
-              className="arrow"
-              onClick={() => handleMove("l")}
-            />
-            <div className="sliderWrapper">
-              <img src={photos[slideNumber].src} alt="" className="sliderImg" />
+          <div className={isScrolled ? 'headerBookY' : 'headerBook1'}>
+            <Box >
+              <Box >
+                <Tabs value={value} onChange={handleChange} >
+                  <div style={{display: 'flex', gap: '15px', borderBottom : 0, width: '100%', padding: '0 20px'}}>
+                  <Tab label="Tổng quan"  onClick={()=>{homeRef.current.scrollIntoView({behavior : 'smooth'})}} style={{ textTransform: 'none', fontWeight : '500' }}/>
+                  <Tab label="Thông tin và giá" onClick={handleBookNowClick} style={{ textTransform: 'none', fontWeight : '500' }}/>
+                  <Tab label="Đánh giá khách hàng" onClick={handleReviewClick} style={{ textTransform: 'none', fontWeight : '500' }}/>
+                  <Tab label="Đặt câu hỏi"  onClick={()=>{questionRef.current.scrollIntoView({ behavior: 'smooth' });}} style={{ textTransform: 'none', fontWeight : '500' }}/>
+                  <Tab label="Tiện nghi"  onClick={()=>{itemRef.current.scrollIntoView({behavior : 'smooth'})}} style={{ textTransform: 'none', fontWeight : '500' }}/>
+                  <Tab label="Quy tắc chung" onClick={()=>{ruleRef.current.scrollIntoView({behavior : 'smooth'})}} style={{ textTransform: 'none', fontWeight : '500' }}/>
+                  <Tab label="Khách sạn khác"  onClick={()=>{endRef.current.scrollIntoView({behavior : 'smooth'})}} style={{ textTransform: 'none', fontWeight : '500' }}/>
+                  </div>
+                </Tabs>
+              </Box>
+            </Box>
             </div>
-            <FontAwesomeIcon
-              icon={faCircleArrowRight}
-              className="arrow"
-              onClick={() => handleMove("r")}
-            />
-          </div>
-        )}
-        <div className="hotelWrapper">
-          <button className="bookNow" onClick={handleBookNowClick}>Reserve or Book Now!</button>
-          <h1 className="hotelTitle">Tower Street Apartments</h1>
-          <div className="hotelAddress">
-            <FontAwesomeIcon icon={faLocationDot} />
-            <span>Elton St 125 New york</span>
-          </div>
-          <span className="hotelDistance">
-            Excellent location – 500m from center
-          </span>
-          <span className="hotelPriceHighlight">
-            Book a stay over $114 at this property and get a free airport taxi
-          </span>
-          <div className="hotelImages">
-            {photos.map((photo, i) => (
-              <div className="hotelImgWrapper" key={i}>
-                <img
-                  onClick={() => handleOpen(i)}
-                  src={photo.src}
-                  alt=""
-                  className="hotelImg"
-                />
+        {
+          isLoading && (
+            <div className="hotelWrapper">
+            <h1 className="hotelTitle"><Skeleton width={'40%'} height={40} /></h1>
+            <div className="hotelAddress">
+              <Skeleton width={'20%'} height={20} />
+            </div>
+            <span className="hotelDistance">
+              <Skeleton width={'20%'} height={20} />
+            </span>
+            <span className="hotelPriceHighlight">
+              <Skeleton width={'40%'} height={20} />
+            </span>
+            <div className="hotelImages">
+                <div className="hotelImgWrapper">
+                   <Skeleton  style={{height : '460px', marginTop : '-100px'}}/>
+                </div>
+                <div className="hotelImgWrapper">
+                   <Skeleton  style={{height : '460px', marginTop : '-100px'}}/>
+                </div>
+                <div className="hotelImgWrapper">
+                   <Skeleton  style={{height : '460px', marginTop : '-100px'}}/>
+                </div>
+                <div className="hotelImgWrapper">
+                   <Skeleton  style={{height : '460px', marginTop : '-180px'}}/>
+                </div>
+                <div className="hotelImgWrapper">
+                   <Skeleton  style={{height : '460px', marginTop : '-180px'}}/>
+                </div>
+                <div className="hotelImgWrapper">
+                   <Skeleton  style={{height : '460px', marginTop : '-180px'}}/>
+                </div>
+            </div>
+            <div className="hotelDetails">
+              <div className="hotelDetailsTexts">
+              <Skeleton  height={400} style={{marginTop : '-190px'}}/>
+                <h4><Skeleton width={'50%'} style={{marginTop : '-80px'}}/></h4>
+                <Skeleton  height={200} style={{marginTop : '-50px'}}/>
               </div>
-            ))}
-          </div>
-          <div className="hotelDetails">
-            <div className="hotelDetailsTexts">
-              <p className="hotelDesc">
-              Tọa lạc ở Hạ Long, cách Bãi Cháy 7 phút đi bộ, Sunland Halong Hotel and Restaurant cung cấp chỗ nghỉ có hồ bơi ngoài trời, chỗ đậu xe riêng miễn phí, khu vườn và phòng chờ chung. Chỗ nghỉ này có các tiện nghi như sân hiên, nhà hàng và quầy bar. Chỗ nghỉ cung cấp lễ tân 24/24, dịch vụ đưa đón sân bay, bếp chung và Wi-Fi miễn phí ở toàn bộ chỗ nghỉ.
-
-              Các phòng tại khách sạn được trang bị điều hòa, khu vực ghế ngồi, TV màn hình phẳng có truyền hình vệ tinh, két an toàn, phòng tắm riêng, vòi xịt/chậu rửa vệ sinh, đồ vệ sinh cá nhân miễn phí và máy sấy tóc. Tất cả các phòng có ấm đun nước, trong đó một số phòng có ban công và một số khác thì nhìn ra thành phố. Tại Sunland Halong Hotel and Restaurant, tất cả các phòng đều được thiết kế có ga trải giường và khăn tắm.
-
-              Hằng ngày, chỗ nghỉ có các lựa chọn thực đơn buffet, thực đơn à la carte hoặc kiểu lục địa cho bữa sáng.
-
-              Chỗ nghỉ có BBQ.
-
-              Sunland Halong Hotel and Restaurant cách Cáp treo Nữ Hoàng 1.8 km và Trung tâm thương mại Vincom Hạ Long 8.4 km. Sân bay gần nhất là Sân bay Quốc tế Cát Bi, cách khách sạn 42 km.
-
-              Các cặp đôi đặc biệt thích địa điểm này — họ cho điểm 8,8 cho kỳ nghỉ dành cho 2 người.
-              </p>
-              <h4>Các tiện nghi được yêu chuộng nhất</h4>
-              <ul className="services">
-                <li className="servicesItem">
-                  <PoolIcon  style={{color: 'rgb(83, 196, 83)'}} />
-                  <p>Hồ bơi ngoài trời</p>
-                </li>
-                <li className="servicesItem">
-                  <PoolIcon style={{color: 'rgb(83, 196, 83)'}} />
-                  <p>Hồ bơi ngoài trời</p>
-                </li>
-                <li className="servicesItem">
-                  <PoolIcon style={{color: 'rgb(83, 196, 83)'}} />
-                  <p>Hồ bơi ngoài trời</p>
-                </li>
-                <li className="servicesItem">
-                  <PoolIcon style={{color: 'rgb(83, 196, 83)'}} />
-                  <p>Hồ bơi ngoài trời</p>
-                </li>
-                <li className="servicesItem">
-                  <PoolIcon style={{color: 'rgb(83, 196, 83)'}} />
-                  <p>Hồ bơi ngoài trời</p>
-                </li>
-                <li className="servicesItem">
-                  <PoolIcon style={{color: 'rgb(83, 196, 83)'}} />
-                  <p>Hồ bơi ngoài trời</p>
-                </li>
-                <li className="servicesItem">
-                  <PoolIcon style={{color: 'rgb(83, 196, 83)'}} />
-                  <p>Hồ bơi ngoài trời</p>
-                </li>
-                <li className="servicesItem">
-                  <PoolIcon style={{color: 'rgb(83, 196, 83)'}} />
-                  <p>Hồ bơi ngoài trời</p>
-                </li>
-                <li className="servicesItem">
-                  <PoolIcon style={{color: 'rgb(83, 196, 83)'}} />
-                  <p>Hồ bơi ngoài trời</p>
-                </li>
-              </ul>
-            </div>
-            <div className="hotelDetailsPrice">
-              <h1>Perfect for a 9-night stay!</h1>
-              <span>
-                Located in the real heart of Krakow, this property has an
-                excellent location score of 9.8!
-              </span>
-              <h2>
-                <b>$945</b> (9 nights)
-              </h2>
-              <button onClick={handleBookNowClick}>Reserve or Book Now!</button>
             </div>
           </div>
-        </div>
+          )
+        }
+        {
+          !isLoading && !error && data && (
+            <div className="hotelWrapper" ref={homeRef}>
+            <div style={{display: 'flex', justifyContent: 'space-between'}}>
+            <span className="hotelTitle">{data.name} <Rating name="half-rating-read" defaultValue={5} precision={1} readOnly style={{fontSize : '15px', color: 'yellow'}} /></span>
+            <button className="bookNow" onClick={handleBookNowClick}>Đặt phòng ngay!</button>
+            </div>
+            <div className="hotelAddress">
+              <FontAwesomeIcon icon={faLocationDot} />
+              <span>{data.Address.numberHome}, {data.Address.ward}, {data.Address.district}, {data.Address.province}</span>
+            </div>
+            <span className="hotelDistance">
+              Cách trung tâm 500m
+            </span>
+            <div className="imgContainer">
+              <div className="imgTop">
+                <div className="imgTopLeft">
+                  {data.Images.map((item, i)=>{
+                    if(i < 2) return (
+                      <img 
+                      key = {i}
+                      src={item.filename} 
+                      alt="" 
+                      className="imgSrc"
+                    />
+                    )
+                  })}
+                </div>
+                <div className="imgTopRight">
+                  <img 
+                      src={data.Images[2].filename} 
+                      alt="" 
+                      className="imgSrcRight"
+                    />
+                </div>
+              </div>
+              <div className="imgBottom">
+                  {data.Images.map((item, i)=>{
+                    if(i > 2 && i < 8){
+                      return (
+                        <img 
+                          key = {i}
+                          src={item.filename} 
+                          alt="" 
+                          className="imgSrcBottom"
+                        />
+                      )
+                    }else if(i == 8){
+                      return (
+                        <div className="plusImg">
+                          <img 
+                            key = {i}
+                            src={item.filename} 
+                            alt="" 
+                            className="imgSrcBottom1"
+                          />
+                          <span className="numImgDu"><ModalImg num = {data.Images.length - 9} data = {data.Images}/></span>
+                        </div>
+                      )
+                    }
+                  })}
+              </div>
+            </div>
+            <div className="hotelDetails">
+              <div className="hotelDetailsTexts">
+                <p className="hotelDesc">
+                  {data?.description}
+                </p>
+                <h4>Các tiện nghi được yêu chuộng nhất</h4>
+                <ul className="services">
+                  {data.Services.map((item, i)=>(
+                    <li className="servicesItem" key={i}>
+                      <PoolIcon  style={{color: 'rgb(83, 196, 83)'}} />
+                      <p>{item?.name}</p>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div className="hotelDetailsPrice">
+                <h1>Hoàn hảo cho kỳ nghỉ</h1>
+                <span>
+                Nằm ngay trung tâm , chỗ nghỉ này có điểm vị trí tuyệt vời - 9,8!
+                </span>
+                <h2>
+                  <b>$945</b> (9 nights)
+                </h2>
+                <button onClick={handleBookNowClick}>Đặt phòng ngay!</button>
+              </div>
+            </div>
+          </div>
+          )
+        }
+        {!isLoading && error && data &&(
+          <div>{error}</div>
+        )}
         <div ref={roomEmptyRef}>
-        <RoomEmpty />
+        {data && <RoomEmpty data = {data.Rooms} hotel = {data} id = {id}/>}
         </div>
-        <Review/>
-        <Question />
-        <Services/>
-        <Rule/>
-        <QuestionUsually />
-        <h2 className="homeTitle">Các phòng khác của khách sạn</h2>
+        <div ref = {revieeRef}>
+        <Review id = {id}/>
+        </div>
+        <div ref = {questionRef}>
+          <Question id = {id}/>
+        </div>
+        <div ref = {itemRef}>
+          <Services id = {id}/>
+        </div>
+        <div ref={ruleRef}>
+          <Rule id = {id}/>
+        </div>
+        <h2 className="homeTitle" ref={endRef}>Các phòng khác của khách sạn</h2>
         <FeaturedProperties/>
       </div>
       <MailList />

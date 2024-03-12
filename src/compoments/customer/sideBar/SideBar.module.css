@@ -14,8 +14,8 @@
 }
 
 .SideBar_item .title {
-    text-transform: uppercase;
     font-weight: bold;
+    font-size: 14px;
 }
 
 .SideBar_item ul {
@@ -49,4 +49,13 @@
 
 .btn_more span {
     margin-right: 4px;
+}
+.SideBar_item>ul>li{
+    font-size: 13px;
+    color: rgb(76, 76, 76);
+    display: flex;
+    gap: 2px;
+    align-items: center;
+}
+.SideBar_item>ul>li>input{
 }

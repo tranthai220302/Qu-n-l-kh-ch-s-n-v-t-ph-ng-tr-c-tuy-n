@@ -1,14 +1,14 @@
-.new {
+.new1 {
   width: 100%;
   display: flex;
 }
 
-.new .newContainer {
+.new1 .newContainer1 {
   flex: 6;
 }
 
-.new .newContainer .top,
-.new .newContainer .bottom {
+.new1 .newContainer1 .top1,
+.new1 .newContainer1 .bottom1 {
   -webkit-box-shadow: 2px 4px 10px 1px rgba(0, 0, 0, 0.47);
   box-shadow: 2px 4px 10px 1px rgba(201, 201, 201, 0.47);
   padding: 10px;
@@ -16,66 +16,66 @@
   display: flex;
 }
 
-.new .newContainer .top h1,
-.new .newContainer .bottom h1 {
+.new1 .newContainer1 .top1 h1,
+.new1 .newContainer1 .bottom1 h1 {
   color: lightgray;
   font-size: 20px;
 }
 
-.new .newContainer .top .left,
-.new .newContainer .bottom .left {
+.new1 .newContainer1 .top1 .left1,
+.new1 .newContainer1 .bottom1 .left1{
   flex: 1;
   text-align: center;
 }
 
-.new .newContainer .top .left img,
-.new .newContainer .bottom .left img {
+.new1 .newContainer1 .top1 .left1 img,
+.new1 .newContainer1 .bottom1 .left1 img {
   width: 100px;
   height: 100px;
   border-radius: 50%;
   object-fit: cover;
 }
 
-.new .newContainer .top .right,
-.new .newContainer .bottom .right {
+.new1 .newContainer1 .top1 .right1,
+.new1 .newContainer1 .bottom1 .right1 {
   flex: 2;
 }
 
-.new .newContainer .top .right form,
-.new .newContainer .bottom .right form {
+.new1 .newContainer1 .top1 .right1 form,
+.new1 .newContainer1 .bottom1 .right1 form {
   display: flex;
   flex-wrap: wrap;
   gap: 30px;
   justify-content: space-around;
 }
 
-.new .newContainer .top .right form .formInput,
-.new .newContainer .bottom .right form .formInput {
+.new1 .newContainer1 .top1 .right1 form .formInput1,
+.new1 .newContainer1 .bottom1 .right1 form .formInput1 {
   width: 40%;
 }
 
-.new .newContainer .top .right form .formInput label,
-.new .newContainer .bottom .right form .formInput label {
+.new1 .newContainer1 .top1 .right1 form .formInput1 label,
+.new1 .newContainer1 .bottom1 .right1 form .formInput1 label {
   display: flex;
   align-items: center;
   gap: 10px;
 }
 
-.new .newContainer .top .right form .formInput label .icon,
-.new .newContainer .bottom .right form .formInput label .icon {
+.new1 .newContainer1 .top1 .right1 form .formInput1 label .icon,
+.new1 .newContainer1 .bottom1 .right1 form .formInput1 label .icon {
   cursor: pointer;
 }
 
-.new .newContainer .top .right form .formInput input,
-.new .newContainer .bottom .right form .formInput input {
+.new1 .newContainer1 .top1 .right1 form .formInput1 input,
+.new1 .newContainer1 .bottom1 .right1 form .formInput1 input {
   width: 100%;
   padding: 5px;
   border: none;
   border-bottom: 1px solid gray;
 }
 
-.new .newContainer .top .right form button,
-.new .newContainer .bottom .right form button {
+.new1 .newContainer1 .top1 .right1 form button,
+.new1 .newContainer1 .bottom1 .right1 form button {
   width: 150px;
   padding: 10px;
   border: none;

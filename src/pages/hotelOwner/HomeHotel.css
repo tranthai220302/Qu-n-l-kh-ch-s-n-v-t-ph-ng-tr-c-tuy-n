@@ -1,0 +1,19 @@
+.containerHomeOwner{
+    width: 1024px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: auto;
+}
+.headerOwner{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.nameCurrent:hover  {
+    cursor: pointer;
+    text-decoration: underline;
+}
+.MuiDataGrid-columnHeader.status-header {
+     font-weight: 700;
+}

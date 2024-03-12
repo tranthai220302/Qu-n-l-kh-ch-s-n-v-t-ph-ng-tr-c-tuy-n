@@ -8,6 +8,7 @@ import Typography from '@mui/material/Typography';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import ChatBubbleIcon from '@mui/icons-material/ChatBubble';
 import './QuestionItem.css'
+import { format } from 'date-fns';
 const bull = (
   <Box
     component="span"
@@ -17,24 +18,26 @@ const bull = (
   </Box>
 );
 
-export default function QuestionItem() {
+export default function QuestionItem({data}) {
   return (
-    <Card sx={{ minWidth: 275 }}>
-      <CardContent>
+    <Card sx={{ minWidth: 275, height : '250px' }}>
+      <CardContent style={{display: 'flex', flexDirection : 'column', height : '100%', position: 'relative'}}>
+        <div>
         <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
           <div className="userQuestion">
             <AccountCircleIcon />
-            <span>When is the best time to visit your property for the perfect beach holiday?</span>
+            <span>{data.question}?</span>
           </div>
         </Typography>
         <Typography sx={{ mb: 1.5 }} color="text.secondary">
           <div className="userFeedBack">
             <ChatBubbleIcon />
-            <span>Dear Sir/Madam, Thank you for your kind question. The best time to visit the city is Summertime from March to August</span>
+            <span>{data.FeedBack.feedback}</span>
           </div>
         </Typography>
+        </div>
         <Typography variant="body2">
-          <span style={{fontSize: '12px', color: 'gray'}}>Đã trả lời vào ngày 10 tháng 9 năm 2019</span>
+          <span style={{fontSize: '12px', color: 'gray',  position : 'absolute', bottom : 60}}>Đã trả lời vào {format(data.FeedBack.createdAt, 'yyyy-MM-dd')}</span>
         </Typography>
       </CardContent>
     </Card>

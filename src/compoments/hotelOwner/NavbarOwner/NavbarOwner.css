@@ -1,0 +1,42 @@
+.navbarOwner{
+    height: 50px;
+    background-color: #003580;
+    display: flex;
+    justify-content: center;
+    position: relative;
+    padding: 3px 0;
+    flex-direction: column;
+    height: 145px;
+    align-items: center;
+    gap: 40px;
+  }
+  
+  .navContainer{
+    width: 100%;
+    max-width: 1024px;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  
+  
+  }
+  
+  .logo{
+    font-weight: 800;
+    font-size: 30px;
+    cursor: pointer;
+    font-family: 'Arial Black';
+  }
+  
+  .navButton{
+    margin-left: 20px;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    color: #003580;
+  }
+  .navItems{
+    display: flex;
+    align-items: center;
+  }

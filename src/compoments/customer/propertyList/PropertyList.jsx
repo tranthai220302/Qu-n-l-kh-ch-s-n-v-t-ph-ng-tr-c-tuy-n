@@ -3,110 +3,143 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import { Pagination } from 'swiper/modules';
-
+import { getData } from "../../../ults/getData";
+import { useEffect, useState } from "react";
+import Skeleton from '@mui/material/Skeleton';
+import Box from '@mui/material/Box';
 const PropertyList = () => {
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(false);
+  const [data, setData] = useState([]);
+  const [numRoom, setNumRoom] = useState([])
+  useEffect(() => {
+    const fetchData = async () => {
+        try {
+            const result = await getData('/category', setIsLoading, setError);
+            if (result !== "loi") {
+                setData(result?.data);
+                setNumRoom(result?.numRoom);
+            }
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    };
+
+    fetchData();
+  }, []);
+
   return (
-    <Swiper
-      slidesPerView={5}
-      spaceBetween={20}
-      pagination={{
-        clickable: true,
-      }}
-      modules={[Pagination]}
-      className="mySwiper"
-    >
-      <SwiperSlide>
-        <div className="pListItem">
-          <img
-            src="https://cf.bstatic.com/xdata/images/xphoto/square300/57584488.webp?k=bf724e4e9b9b75480bbe7fc675460a089ba6414fe4693b83ea3fdd8e938832a6&o="
-            alt=""
-            className="pListImg"
-          />
-          <div className="pListTitles">
-            <h1>Hotels</h1>
-            <h2>233 hotels</h2>
-          </div>
-        </div>
-      </SwiperSlide>
-      <SwiperSlide>
-        <div className="pListItem">
-          <img
-            src="https://cf.bstatic.com/static/img/theme-index/carousel_320x240/card-image-apartments_300/9f60235dc09a3ac3f0a93adbc901c61ecd1ce72e.jpg"
-            alt=""
-            className="pListImg"
-          />
-          <div className="pListTitles">
-            <h1>Apartments</h1>
-            <h2>2331 hotels</h2>
-          </div>
-        </div>
-      </SwiperSlide>
-      <SwiperSlide>
-        <div className="pListItem">
-          <img
-            src="https://cf.bstatic.com/static/img/theme-index/carousel_320x240/bg_resorts/6f87c6143fbd51a0bb5d15ca3b9cf84211ab0884.jpg"
-            alt=""
-            className="pListImg"
-          />
-          <div className="pListTitles">
-            <h1>Resorts</h1>
-            <h2>2331 hotels</h2>
-          </div>
-        </div>
-      </SwiperSlide>
-      <SwiperSlide>
-        <div className="pListItem">
-          <img
-            src="https://cf.bstatic.com/static/img/theme-index/carousel_320x240/card-image-villas_300/dd0d7f8202676306a661aa4f0cf1ffab31286211.jpg"
-            alt=""
-            className="pListImg"
-          />
-          <div className="pListTitles">
-            <h1>Villas</h1>
-            <h2>2331 hotels</h2>
-          </div>
-        </div>
-      </SwiperSlide>
-      <SwiperSlide>
-        <div className="pListItem">
-          <img
-            src="https://cf.bstatic.com/static/img/theme-index/carousel_320x240/card-image-chalet_300/8ee014fcc493cb3334e25893a1dee8c6d36ed0ba.jpg"
-            alt=""
-            className="pListImg"
-          />
-          <div className="pListTitles">
-            <h1>Cabins</h1>
-            <h2>2331 hotels</h2>
-          </div>
-        </div>
-      </SwiperSlide>
-      <SwiperSlide>
-        <div className="pListItem">
-          <img
-            src="https://cf.bstatic.com/static/img/theme-index/carousel_320x240/card-image-chalet_300/8ee014fcc493cb3334e25893a1dee8c6d36ed0ba.jpg"
-            alt=""
-            className="pListImg"
-          />
-          <div className="pListTitles">
-            <h1>Cabins</h1>
-            <h2>2331 hotels</h2>
-          </div>
-        </div>
-      </SwiperSlide>
-      <SwiperSlide>
-        <div className="pListItem">
-          <img
-            src="https://cf.bstatic.com/static/img/theme-index/carousel_320x240/card-image-chalet_300/8ee014fcc493cb3334e25893a1dee8c6d36ed0ba.jpg"
-            alt=""
-            className="pListImg"
-          />
-          <div className="pListTitles">
-            <h1>Cabins</h1>
-            <h2>2331 hotels</h2>
-          </div>
-        </div>
-      </SwiperSlide>
-    </Swiper>
+    <div className="containerProperties">
+      {
+        isLoading ? <h1 className="homeTitle"><Skeleton width={'20%'} style={{marginBottom: '30px', textAlign : 'left', marginLeft : 0}}/></h1> : <h1 className="homeTitle" style={{marginBottom: '30px'}}>Các thể loại phòng</h1>
+      }
+      {
+        isLoading ? <h1 className="homeTitle"><Skeleton width={'30%'} style={{marginBottom: '30px', textAlign : 'left', marginLeft : 0}}/></h1> : <div className="title" style={{textAlign : 'left', width : '100%'}}>Từ biệt thự, lâu đài cho đến nhà thuyền, igloo, chúng tôi đều có hết</div>
+      }
+      {isLoading ? (
+          <Swiper
+          slidesPerView={5}
+          spaceBetween={20}
+          pagination={{
+            clickable: true,
+          }}
+          modules={[Pagination]}
+          className="mySwiper"
+        >
+          <SwiperSlide>
+            <div className="pListItem">
+              <Skeleton
+                sx={{ bgcolor: 'grey.300' }}
+                variant="rectangular"
+                width={180}
+                height={150}
+                style={{
+                  borderRadius : '10px'
+                }}
+              />
+            </div>
+          </SwiperSlide>
+          <SwiperSlide>
+            <div className="pListItem">
+              <Skeleton
+                sx={{ bgcolor: 'grey.300' }}
+                variant="rectangular"
+                width={180}
+                height={150}
+                style={{
+                  borderRadius : '10px'
+                }}
+              />
+            </div>
+          </SwiperSlide>
+          <SwiperSlide>
+            <div className="pListItem">
+              <Skeleton
+                sx={{ bgcolor: 'grey.300' }}
+                variant="rectangular"
+                width={180}
+                height={150}
+                style={{
+                  borderRadius : '10px'
+                }}
+              />
+            </div>
+          </SwiperSlide>
+          <SwiperSlide>
+            <div className="pListItem">
+              <Skeleton
+                sx={{ bgcolor: 'grey.300' }}
+                variant="rectangular"
+                width={180}
+                height={150}
+                style={{
+                  borderRadius : '10px'
+                }}
+              />
+            </div>
+          </SwiperSlide>
+          <SwiperSlide>
+            <div className="pListItem">
+              <Skeleton
+                sx={{ bgcolor: 'grey.300' }}
+                variant="rectangular"
+                width={180}
+                height={150}
+                style={{
+                  borderRadius : '10px'
+                }}
+              />
+            </div>
+          </SwiperSlide>
+        </Swiper>
+      ) : (
+        <Swiper
+        slidesPerView={5}
+        spaceBetween={20}
+        pagination={{
+          clickable: true,
+        }}
+        modules={[Pagination]}
+        className="mySwiper"
+      >
+        {data && data.map((item,i)=>(
+          <SwiperSlide key={item.id}>
+            <div className="pListItem">
+              <img
+                src={item.img}
+                alt=""
+                className="pListImg"
+              />
+              <div className="pListTitles">
+                <h1>{item.name}</h1>
+                <h2>{numRoom[i]} phòng</h2>
+              </div>
+            </div>
+          </SwiperSlide>
+        ))}
+      </Swiper>
+      )}
+    </div>
   );
 };
 

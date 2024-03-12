@@ -14,7 +14,7 @@ import Paper from '@mui/material/Paper';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import './TableRule.css'
-export default function TableRule() {
+export default function TableRule({data}) {
   return (
     <TableContainer component={Paper} style={{marginTop: '20px'}}>
       <Table aria-label="collapsible table">
@@ -25,7 +25,7 @@ export default function TableRule() {
             </TableCell>
             <TableCell>
                 <div className="checkin">
-                    <span className='hours'>Từ 14:00 - 00:00</span>
+                    <span className='hours'>Từ {data.timeCheckIn}</span>
                     <span className='titleH2'>Khách được yêu cầu xuất trình giấy tờ tùy thân có ảnh và thẻ tín dụng lúc nhận phòng</span>
                 </div>
             </TableCell>
@@ -36,7 +36,7 @@ export default function TableRule() {
             </TableCell>
             <TableCell>
                 <div className="checkin">
-                    <span className='hours'>Từ 13:00 - 17:00</span>
+                    <span className='hours'>Từ {data.timeCheckOut}</span>
                 </div>
             </TableCell>
           </TableRow>
@@ -96,12 +96,22 @@ export default function TableRule() {
             </TableCell>
           </TableRow>
           <TableRow>
-            <TableCell>
+            <TableCell style={{fontWeight: '600'}}>
                 Vật nuôi
             </TableCell>
             <TableCell>
                 <span>
-                Vật nuôi không được phép.
+                {data.isAnimals ? 'Vật nuôi không được phép.' : 'Không được phép mang vật nuôi.'}
+                </span>
+            </TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell style={{fontWeight: '600'}}>
+                Bãi đỗ xe
+            </TableCell>
+            <TableCell>
+                <span>
+                {data.isParking ? 'Có bãi đỗ xe' : 'Không có bãi đỗ xe'}
                 </span>
             </TableCell>
           </TableRow>

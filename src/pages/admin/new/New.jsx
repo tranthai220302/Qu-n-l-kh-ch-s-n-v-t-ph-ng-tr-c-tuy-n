@@ -8,15 +8,15 @@ const New = ({ inputs, title }) => {
   const [file, setFile] = useState("");
 
   return (
-    <div className="new">
+    <div className="new1">
       <Sidebar />
-      <div className="newContainer">
+      <div className="newContainer1">
         <Navbar />
-        <div className="top">
+        <div className="top1">
           <h1>{title}</h1>
         </div>
-        <div className="bottom">
-          <div className="left">
+        <div className="bottom1">
+          <div className="left1">
             <img
               src={
                 file
@@ -26,9 +26,9 @@ const New = ({ inputs, title }) => {
               alt=""
             />
           </div>
-          <div className="right">
+          <div className="right1">
             <form>
-              <div className="formInput">
+              <div className="formInput1">
                 <label htmlFor="file">
                   Image: <DriveFolderUploadOutlinedIcon className="icon" />
                 </label>
@@ -41,7 +41,7 @@ const New = ({ inputs, title }) => {
               </div>
 
               {inputs.map((input) => (
-                <div className="formInput" key={input.id}>
+                <div className="formInput1" key={input.id}>
                   <label>{input.label}</label>
                   <input type={input.type} placeholder={input.placeholder} />
                 </div>

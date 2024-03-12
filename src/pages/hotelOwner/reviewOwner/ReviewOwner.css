@@ -1,0 +1,11 @@
+.containerReviewOwner{
+    width: 1024px;
+    display: flex;
+    margin: auto;
+    flex-direction: column;
+    margin-top: 30px;
+}
+.customDatePicker{
+    font-size: 12px;
+    height: 50px;
+}

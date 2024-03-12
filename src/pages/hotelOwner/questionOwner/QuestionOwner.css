@@ -1,0 +1,7 @@
+.containerQuestionOwner{
+    width: 1024px;
+    display: flex;
+    margin: auto;
+    flex-direction: column;
+    margin-top: 30px;
+}

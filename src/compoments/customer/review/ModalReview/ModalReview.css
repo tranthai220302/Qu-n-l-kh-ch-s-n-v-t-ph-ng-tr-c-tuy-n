@@ -113,4 +113,27 @@
 .like{
     display: flex;
     gap: 20px;
+    cursor: pointer;
+}
+.scoreRating{
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 20px;
+}
+.scoreRatingItem{
+    display: flex;
+    flex-direction: column;
+    gap: 0px;
+    width: 33%;
+}
+.scoreRatingTitle>span{
+    font-size: 12px;
+    font-weight: 500;
+}
+.textReview {
+    margin-top: 20px;
+    outline: none;
+    border-radius: 5px;
+    border: 1px solid rgb(186, 186, 186);
+    font-size: 15px;
 }

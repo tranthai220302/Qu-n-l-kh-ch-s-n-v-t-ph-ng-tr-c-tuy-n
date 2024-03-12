@@ -1,0 +1,16 @@
+.containerPay{
+    width: 65%;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+.headerPayment{
+    border: 1px solid rgb(216, 215, 215);
+    border-radius: 10px;
+    padding: 15px 15px 15px 15px
+}
+.cardPay{
+    border: 1px solid rgb(216, 215, 215);
+    border-radius: 10px;
+    padding: 15px 15px 15px 15px
+}

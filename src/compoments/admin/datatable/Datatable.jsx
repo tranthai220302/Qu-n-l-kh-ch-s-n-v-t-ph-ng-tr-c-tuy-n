@@ -4,7 +4,8 @@ import { userColumns, userRows } from "../../../datatablesource";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 
-const Datatable = () => {
+const Datatable = ({rows}) => {
+  console.log(rows)
   const [data, setData] = useState(userRows);
 
   const handleDelete = (id) => {
@@ -15,19 +16,13 @@ const Datatable = () => {
     {
       field: "action",
       headerName: "Action",
-      width: 200,
+      width: 100,
       renderCell: (params) => {
         return (
           <div className="cellAction">
             <Link to="/users/test" style={{ textDecoration: "none" }}>
               <div className="viewButton">View</div>
             </Link>
-            <div
-              className="deleteButton"
-              onClick={() => handleDelete(params.row.id)}
-            >
-              Delete
-            </div>
           </div>
         );
       },
@@ -43,7 +38,7 @@ const Datatable = () => {
       </div>
       <DataGrid
         className="datagrid"
-        rows={data}
+        rows={rows}
         columns={userColumns.concat(actionColumn)}
         pageSize={9}
         rowsPerPageOptions={[9]}

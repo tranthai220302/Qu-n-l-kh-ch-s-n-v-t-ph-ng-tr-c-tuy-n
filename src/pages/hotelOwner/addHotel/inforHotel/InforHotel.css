@@ -1,0 +1,50 @@
+.containerInforHotel{
+    width: 1024px;
+    display: flex;
+    justify-content: flex-start;
+    margin: auto;
+    margin-top: 50px;
+    gap: 20px;
+}
+.containerH{
+    width: 1024px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    margin: auto;
+}
+.containerInforHotel1{
+    width: 1024px;
+    display: flex;
+    justify-content: flex-start;
+    margin: auto;
+    margin-top: 50px;
+    gap: 20px;
+    flex-direction: column;
+}
+.containerSuccessInfor{
+    width: 1024px;
+    display: flex;
+    justify-content: center;
+    margin: auto;
+    margin-top: 50px;
+    gap: 20px;
+    flex-direction: column;
+    align-items: center;
+}
+.itemSucess{
+    background-color: white;
+    padding: 20px 20px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    width: 70%;
+}
+.itemSucess1{
+    background-color: white;
+    padding: 20px 20px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    width: 70%;
+    cursor: pointer;
+}
+.itemSucess1:hover{
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+}

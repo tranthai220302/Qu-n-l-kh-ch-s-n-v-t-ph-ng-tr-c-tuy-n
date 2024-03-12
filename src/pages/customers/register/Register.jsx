@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -13,6 +13,10 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import HomeIcon from '@mui/icons-material/Home';
+import LinearWithValueLabel from '../../../compoments/linear/Linear';
+import Snackbar from '@mui/material/Snackbar';
+import { useNavigate } from 'react-router-dom';
+import newRequest from '../../../ults/newRequest';
 function Copyright(props) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
@@ -30,18 +34,54 @@ function Copyright(props) {
 const defaultTheme = createTheme();
 
 export default function RegisterCustomer() {
+  const navigate = useNavigate()
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(false)
+  const [state, setState] = React.useState({
+    open: false,
+    vertical: 'top',
+    horizontal: 'right',
+  });
+  const { vertical, horizontal, open } = state;
+  const handleClose = () => {
+    setState({ ...state, open: false });
+  };
   const handleSubmit = (event) => {
+    setIsLoading(true);
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
+    newRequest.post('/auth/register', {
+      email : data.get('email'),
+      password : data.get('password'),
+      confirmPassword : data.get('confirmPassword')
+    }).then((res)=>{
+        setIsLoading(false)
+        setError(false)
+        navigate('/login')
+    }).catch((error)=>{
+      setIsLoading(false);
+      setError(error.response.data)
+      setState({
+        open: true,
+        vertical: 'top',
+        horizontal: 'right',
+      })
+    })
   };
 
   return (
     <ThemeProvider theme={defaultTheme}>
-      <Grid container component="main" style={{ height: '100vh' }}>
+      <Snackbar 
+        anchorOrigin={{ vertical, horizontal }}
+        open={open}
+        onClose={handleClose}
+        message={error}
+        key={vertical + horizontal}
+      />
+      <Grid container component="main" style={{ height: '100vh', position: 'relative' }}>
+      <div  style={{position: 'absolute', top : '0', width :'100%'}}>
+        {isLoading && <LinearWithValueLabel isLoading={isLoading}/>}
+      </div>
         <CssBaseline />
         <Grid
           item
@@ -100,7 +140,7 @@ export default function RegisterCustomer() {
                 margin="normal"
                 required
                 fullWidth
-                name="password"
+                name="confirmPassword"
                 label="Confirm Password"
                 type="password"
                 id="password"

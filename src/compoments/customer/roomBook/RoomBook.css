@@ -1,0 +1,43 @@
+.containerRoomBook{
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.roomBookHeader{
+    border: 1px solid rgb(216, 215, 215);
+    border-radius: 10px;
+    padding: 15px 15px 15px 15px
+}
+.roomBookDetail{
+    border: 1px solid rgb(216, 215, 215);
+    border-radius: 10px;
+    padding: 15px 15px 15px 15px
+}
+.roomBookPrice{
+    border: 1px solid rgb(216, 215, 215);
+    border-radius: 10px;
+    padding: 15px 15px 15px 15px
+}
+.checkInRoom{
+    border-right: 1px solid rgb(216, 215, 215);
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 50%;
+    padding: 10px 10px 10px 0;
+}
+.nameNhan{
+    font-weight: 500;
+    font-size: 14px;
+}
+.timeCheckInRoom{
+    font-weight: 700;
+}
+.checkOutRoom{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 50%;
+    padding: 10px;
+}

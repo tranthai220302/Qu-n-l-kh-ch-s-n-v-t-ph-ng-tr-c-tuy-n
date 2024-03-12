@@ -1,14 +1,14 @@
 export const userColumns = [
   { field: "id", headerName: "ID", width: 70 },
   {
-    field: "user",
-    headerName: "User",
+    field: "name",
+    headerName: "Tên",
     width: 230,
     renderCell: (params) => {
       return (
         <div className="cellWithImg">
-          <img className="cellImg" src={params.row.img} alt="avatar" />
-          {params.row.username}
+          <img className="cellImg" src={params.row.avatar ? params.row.avatar : "https://as2.ftcdn.net/v2/jpg/03/31/69/91/1000_F_331699188_lRpvqxO5QRtwOM05gR50ImaaJgBx68vi.jpg" } alt="avatar" />
+          {params.row.name ? params.row.name : "Nguyễn Văn A"}
         </div>
       );
     },
@@ -20,18 +20,29 @@ export const userColumns = [
   },
 
   {
-    field: "age",
-    headerName: "Age",
+    field: "phone",
+    headerName: "Phone",
     width: 100,
   },
   {
+    field: "address",
+    headerName: "Address",
+    width: 300,
+    renderCell: (params) => {
+      return (
+        <div className={`cellWithStatus ${params.row.address}`}>
+        </div>
+      );
+    },
+  },
+  {
     field: "status",
-    headerName: "Status",
-    width: 160,
+    headerName: "Trạng thái",
+    width: 200,
     renderCell: (params) => {
       return (
         <div className={`cellWithStatus ${params.row.status}`}>
-          {params.row.status}
+          {params.row.status === "active" ? 'Đã đăng ký Tài khoản' : "Chưa đăng ký Tài khoản"}
         </div>
       );
     },

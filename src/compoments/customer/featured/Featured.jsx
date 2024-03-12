@@ -1,67 +1,127 @@
 import "./featured.css";
-
+import Skeleton from '@mui/material/Skeleton';
+import Box from '@mui/material/Box';
+import { getData } from "../../../ults/getData";
+import { useEffect, useState } from "react";
 const Featured = () => {
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(false);
+  const [data, setData] = useState([]);
+  useEffect(() => {
+    const fetchData = async () => {
+        try {
+            const result = await getData('/address/popular', setIsLoading, setError);
+            if (result !== "loi") setData(result)
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    };
+
+    fetchData();
+  }, []);
   return (
     <div className="containerFeature">
+        {
+          isLoading ? <Skeleton width={'30%'} style={{marginBottom: '30px'}}/> : <h1 className="homeTitle" style={{marginBottom: '30px'}}>Địa điểm đang thịnh hành</h1>
+        }
       <div className="title">
-        Các lựa chọn phổ biến nhất cho du khách từ Việt Nam
+        {
+          isLoading ? <Skeleton width={'40%'} /> : " Các lựa chọn phổ biến nhất cho du khách từ Việt Nam"
+        }
       </div>
+      {isLoading ? (
         <div className="featured">
-          <div className="featuredItem">
-              <img
-                src="https://shop.photozone.com.vn/wp-content/uploads/2015/02/nho-ngay-13-dia-diem-du-lich-sai-gon-chup-anh-dep-khong-ti-vet_photozone-com-vn-1.jpg"
-                alt=""
-                className="featuredImg"
+              <Skeleton
+                sx={{ bgcolor: 'grey.300' }}
+                variant="rectangular"
+                width={"50%"}
+                height={250}
+                style={{
+                  borderRadius : '10px'
+                }}
               />
-              <div className="featuredTitles">
-                <h2>TP. Hồ Chí Minh</h2>
-              </div>
-            </div>
-            
-            <div className="featuredItem">
-              <img
-                src="https://static.cand.com.vn/Files/Image/hoaithu/2018/11/10/2dfc8311-7e5b-4900-9113-cc73c7f829ce.JPG"
-                alt=""
-                className="featuredImg"
+              <Skeleton
+                sx={{ bgcolor: 'grey.300' }}
+                variant="rectangular"
+                width={"50%"}
+                height={250}
+                style={{
+                  borderRadius : '10px'
+                }}
               />
-              <div className="featuredTitles">
-                <h2>Đà Nẵng</h2>
+        </div>
+      ):(
+      <div className="featured">
+        {data && data.length > 0 && data.map((item, i)=>{
+          if(i == 3 || i == 2){
+            return(
+              <div className="featuredItem" key={i}>
+                <img
+                  src={item.img.filename}
+                  alt=""
+                  className="featuredImg"
+                />
+                <div className="featuredTitles">
+                  <h3 style={{fontWeight : '900', color : 'white'}}>{item.name}</h3>
+                </div>
               </div>
-            </div>
+            )
+          }
+        })}
+      </div>
+      )}
+      {
+        isLoading ? (
+          <div className="featured">
+              <Skeleton
+                sx={{ bgcolor: 'grey.300' }}
+                variant="rectangular"
+                width={"33%"}
+                height={250}
+                style={{
+                  borderRadius : '10px'
+                }}
+              />
+              <Skeleton
+                sx={{ bgcolor: 'grey.300' }}
+                variant="rectangular"
+                width={"33%"}
+                height={250}
+                style={{
+                  borderRadius : '10px'
+                }}
+              />
+              <Skeleton
+                sx={{ bgcolor: 'grey.300' }}
+                variant="rectangular"
+                width={"33%"}
+                height={250}
+                style={{
+                  borderRadius : '10px'
+                }}
+              />
         </div>
-        <div className="featured">
-          <div className="featuredItem">
-            <img
-              src="https://top10hue.vn/wp-content/uploads/2022/10/hinh-anh-hue-16.jpg"
-              alt=""
-              className="featuredImg"
-            />
-            <div className="featuredTitles">
-              <h2>Huế</h2>
-            </div>
-          </div>
-          
-          <div className="featuredItem">
-            <img
-              src="https://www.hanoistudio.vn/wp-content/uploads/2021/05/nhung-dia-diem-chup-anh-dep-o-ha-noi-24.jpeg"
-              alt=""
-              className="featuredImg"
-            />
-            <div className="featuredTitles">
-              <h2>Hà Nội</h2>
-            </div>
-          </div>
-          <div className="featuredItem">
-            <img
-              src="https://baocamau.vn/image/ckeditor/2023/20231012/images/4.jpg"
-              alt=""
-              className="featuredImg"
-            />
-            <div className="featuredTitles">
-              <h2>Cà Mau</h2>
-            </div>
-          </div>
+        ) : (
+          <div className="featured">
+              {data && data.length > 0 && data.map((item, i)=>{
+                if(i == 1 || i == 0 || i == 4){
+                  return(
+                    <div className="featuredItem" key={i}>
+                      <img
+                        src={item.img.filename}
+                        alt=""
+                        className="featuredImg"
+                      />
+                      <div className="featuredTitles">
+                        <h3 style={{fontWeight : '900', color : 'white'}}>{item.name}</h3>
+                      </div>
+                    </div>
+                  )
+                }
+              })}
         </div>
+        )
+      }
     </div>
   );
 };

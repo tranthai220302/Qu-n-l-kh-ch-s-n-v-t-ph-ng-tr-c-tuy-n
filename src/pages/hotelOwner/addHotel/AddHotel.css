@@ -1,0 +1,7 @@
+.containerAddHotel{
+    width: 1024px;
+    display: flex;
+    justify-content: flex-start;
+    margin: auto;
+    margin-top: 50px;
+}

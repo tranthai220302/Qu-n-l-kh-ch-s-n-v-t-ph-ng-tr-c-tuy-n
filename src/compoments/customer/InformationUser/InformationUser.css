@@ -1,0 +1,21 @@
+.containerInfor{
+    width: 100%;
+    border: 1px solid rgb(216, 215, 215);
+    border-radius: 10px;
+    padding: 10px 15px 15px 15px
+}
+.titleInfor{
+    font-size: 23px;
+    font-weight: 700;
+}
+.inputInfor{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 40px;
+    border-bottom: 1px solid rgb(216, 215, 215);
+    padding-bottom: 30px;
+}
+.numberInfor{
+    border-bottom: 1px solid rgb(216, 215, 215);
+    padding-bottom: 30px;
+}
