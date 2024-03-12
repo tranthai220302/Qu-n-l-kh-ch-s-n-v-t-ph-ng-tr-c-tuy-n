@@ -1,5 +1,5 @@
 import { Sequelize, DataTypes } from "sequelize";
-const Address = (sequelize) => sequelize.define('Address', {
+const Address = (sequelize) => sequelize.define('address', {
     id:{
         type: DataTypes.INTEGER,
         primaryKey: true,

@@ -1,5 +1,5 @@
 import { Sequelize, DataTypes } from "sequelize";
-const Admin = (sequelize) => sequelize.define('Admin', {
+const Admin = (sequelize) => sequelize.define('admin', {
     id:{
       type: DataTypes.INTEGER,
       primaryKey: true, 
