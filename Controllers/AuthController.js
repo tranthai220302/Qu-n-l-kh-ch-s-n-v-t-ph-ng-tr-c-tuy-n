@@ -13,6 +13,7 @@ export const loginController = async(req, res, next) =>{
             httpOnly: true,
             secure: true,
             sameSite: 'None',
+            domain: 'www.harubooking.onrender.com',
             path: "/",
         }).status(200).send(token.user)
     } catch (error) {
