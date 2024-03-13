@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const newRequest = axios.create({
-  baseURL: "https://booking-5z8s.onrender.com/api",
+  baseURL: "https://www.harumi.site/api",
   withCredentials: true,
 });
 
