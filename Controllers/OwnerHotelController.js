@@ -1,5 +1,5 @@
 import { getLocationPopularService, searchAdressHotelService } from "../Models/Services/AddressService.js";
-import { deleteHotelNoConfirmService, getQuestionOwnerService, getReviewByOwnerService, inforCurrentDateService } from "../Models/Services/HotelOwnerService.js";
+import { deleteHotelNoConfirmService, getQuestionOwnerService, getRevenueOwnerByHotelsService, getReviewByOwnerService, getlistOwnerService, inforCurrentDateService } from "../Models/Services/HotelOwnerService.js";
 import createError from "../ultis/createError.js";
 
 export const deleteHotelNoConfirm = async(req, res, next) =>{
@@ -39,6 +39,26 @@ export const getQuestionByOwner = async(req, res, next) =>{
         const message = await getQuestionOwnerService(req.id, req.body.dateStart, req.body.dateEnd);
         if(message instanceof Error) return next(message);
         res.status(200).send(message)
+    } catch (error) {
+        next(error);
+    }
+}
+export const getListOwner = async(req, res, next) =>{
+    try {
+        if(req.idRole !== 3) return next(createError(400, 'Bạn không có quyền này!'))
+        const message = await getlistOwnerService();
+        if(message instanceof Error) return next(message);
+        res.status(200).send(message)
+    } catch (error) {
+        next(error);
+    }
+}
+export const getRevenueOwnerByHotels = async(req, res, next) =>{
+    try {
+        if(req.idRole !== 3) return next(createError(400, 'Bạn không có quyền này!'));
+        const hotel = await getRevenueOwnerByHotelsService(req.params.id, req.body.dateStart, req.body.dateEnd);
+        if(hotel instanceof Error) return next(hotel);
+        res.status(200).send(hotel)
     } catch (error) {
         next(error);
     }

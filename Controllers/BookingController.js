@@ -1,4 +1,4 @@
-import { createBookingService, getBookingByIdService, paymentService, revenueService } from "../Models/Services/BookingService.js";
+import { createBookingService, getBookingByIdService, paymentService, revenueHotelService, revenueService } from "../Models/Services/BookingService.js";
 import dotenv from 'dotenv'
 dotenv.config()
 import Stripe from "stripe";
@@ -63,6 +63,15 @@ export const revenue = async(req, res, next) =>{
     try {
         console.log(req.body)
         const booking = await revenueService(req.body.dateStart, req.body.dateEnd, req.id);
+        if(booking instanceof Error) return next(booking);
+        return res.status(200).send(booking)
+    } catch (error) {
+        next(error);
+    }
+}
+export const revenueHotel = async(req, res, next)=>{
+    try {
+        const booking = await revenueHotelService(req.body.dateStart, req.body.dateEnd, req.params.id);
         if(booking instanceof Error) return next(booking);
         return res.status(200).send(booking)
     } catch (error) {

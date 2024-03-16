@@ -198,4 +198,47 @@ export const revenueService = async(dateStart, dateEnd, id)=>{
         return error;
     }
 }
+export const revenueHotelService = async(dateStart, dateEnd, id)=>{
+    try {
+        const startDate = new Date(dateStart);
+        const endDate = new Date(dateEnd);
+        const dateRange = [];
+        let data = []
+        for (let date = startDate; date <= endDate; date.setDate(date.getDate() + 1)) {
+            const year = date.getFullYear();
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const day = String(date.getDate()).padStart(2, '0');
+            const formattedDate = `${year}-${month}-${day}`;
+            dateRange.push(`${day}-${month}`);       
+            const bookings = await db.booking.findAll({
+                where: {
+                    createdAt: {
+                        [Op.between]: [
+                            `${formattedDate} 00:00:00`,
+                            `${formattedDate} 23:59:59`  
+                        ]
+                    }
+                },
+                include : [
+                    {
+                        model : db.hotel,
+                        where :{id}
+                    }
+                ]
+            });
+            let total = 0;
+            bookings.map((item)=>{
+                total += item.priceTotal
+            })
+            console.log(total)
+            data.push(total)
+        }       
+      return {
+        data,
+        dateRange   
+      }
+    } catch (error) {
+        return error;
+    }
+}
 

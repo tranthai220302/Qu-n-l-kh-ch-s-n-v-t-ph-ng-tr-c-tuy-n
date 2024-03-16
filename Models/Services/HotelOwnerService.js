@@ -214,3 +214,81 @@ export const getQuestionOwnerService = async(id,dateStart, dateEnd)=>{
         return error;
     }
 }
+export const getlistOwnerService = async()=>{
+    try {
+        const user = await db.hotelOwner.findAll({
+            include : [
+                {
+                    model : db.user,
+                    include : [
+                        {
+                            model  : db.address
+                        }
+                    ]
+                },
+            ]
+        })
+        let data = [];
+        user.map((item)=>{
+            data.push({
+                id : item.id,
+                name : item.User.name,
+                avatar : item.User.avatar,
+                email : item.User.email,
+                phone : '0' + item.User.phone,
+                address : item.User.Address.province,
+            })
+        })
+        if(data.length === 0) return createError(400, 'Không có khách hàng!');
+        return data;
+    } catch (error) {
+        return error;
+    }
+}
+export const getRevenueOwnerByHotelsService = async(id, dateStart, dateEnd)=>{
+    try {
+        const hotel = await db.hotel.findAll({
+            where : {
+                HotelOwnerId : id
+            },
+            include : [
+                {
+                    model : db.booking,
+                    where: {
+                        createdAt: {
+                            [Op.between]: [
+                                `${dateStart} 00:00:00`,
+                                `${dateEnd} 23:59:59`  
+                            ]
+                        }
+                    },
+                }
+            ]
+        })
+        const hotelName = await db.hotel.findAll({
+            attributes : ['name']
+        });
+        let data = []
+        let category = []
+        hotel.map((item)=>{
+            let total = 0;
+            item.Bookings.map((booking)=>{
+                total += booking.priceTotal
+            })
+            data.push(total);
+            category.push(item.name)
+        })
+        hotelName.map((item)=>{
+            if(category.indexOf(item.name) == -1){
+                category.push(item.name);
+                data.push(0)
+            }
+        })
+        return {
+            data,
+            category
+        }
+    } catch (error) {
+        return error;
+    }
+}

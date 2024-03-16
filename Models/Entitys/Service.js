@@ -1,4 +1,4 @@
-import { Sequelize, DataTypes } from "sequelize";
+import { Sequelize, DataTypes, TEXT } from "sequelize";
 const Services = (sequelize) => sequelize.define('Services', {
     id:{
         type: DataTypes.INTEGER,
@@ -7,7 +7,7 @@ const Services = (sequelize) => sequelize.define('Services', {
     },
     name :{
         type: DataTypes.STRING
-    }
+    },
 })
 
 

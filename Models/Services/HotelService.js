@@ -1,9 +1,10 @@
-import { add } from "date-fns";
+import { add, format } from "date-fns";
 import createError from "../../ultis/createError.js";
 import db from "../Entitys/index.js"
 import { createRoomServices } from "./RoomService.js";
 import { Op, Sequelize } from "sequelize";
 import algoliasearch from "algoliasearch";
+import sendRequestByEmail from "../../ultis/senRequestByEmail.js";
 export const createHotelServices = async(data, id) =>{
     try {
         console.log(data)
@@ -54,6 +55,9 @@ export const createHotelServices = async(data, id) =>{
 export const getHotelsFavouriteServices = async() =>{
     try {
         const hotels = await db.hotel.findAll({
+            where : {
+                isConfirm : 1
+            },
             include : [
                 {
                     model : db.address
@@ -89,6 +93,9 @@ export const searchHotelService = async(queryAddress, queryPerson, queryDate, pa
     try {   
         const offset = (page -1)*bookPerPage
         const hotels = await db.hotel.findAll({
+            where : {
+                isConfirm : 1
+            },
             include: [
                 {
                     model : db.favourite,
@@ -127,6 +134,9 @@ export const searchHotelService = async(queryAddress, queryPerson, queryDate, pa
             offset: offset,
         });
         const num = await db.hotel.findAll({
+            where : {
+                isConfirm : 1
+            },
             include: [
                 {
                     model : db.favourite
@@ -293,7 +303,12 @@ export const getHotelByQueryService = async(wherePrice,queryDate, queryAddress, 
 export const getHotelByIdServices = async(id)=>{
     try {
         const hotel = await db.hotel.findOne({
-            where : {id},
+            where : {
+                [Op.and] : [
+                    {id},
+                    {isConfirm : 1}
+                ]
+            },
             include: [
                 {
                     model : db.hotelOwner,
@@ -478,6 +493,173 @@ export const getHotelByOwnerNoConfirmService = async(id, is) =>{
         })
         if(hotel.length == 0) return createError(400, 'Không có khách sạn đang đăng ký!');
         return hotel;
+    } catch (error) {
+        return error;
+    }
+}
+
+export const getHotelByNoConfirmService = async(id)=>{
+    try {
+        if(id == 0){
+            const hotel = await db.hotel.findAll({
+                where : {
+                    isConfirm : 0
+                },
+                include: [
+                    {
+                        model : db.hotelOwner,
+                        include : {
+                            model : db.user
+                        }
+                    },
+                    {
+                        model : db.favourite
+                    },
+                    {
+                        model: db.address,
+                    },
+                    {
+                        model: db.room,
+                        include: [
+                            {
+                                model: db.price,
+                                include: [
+                                    {
+                                        model: db.booking,
+                                        as: 'booking',
+                                        required: false,
+                                    }
+                                ]
+                            },
+                            {
+                                model : db.item,
+                                as : 'Item',
+                            },
+                            {
+                                model : db.category,
+                            },
+                            {
+                                model : db.image
+                            }
+                        ],
+                    },
+                    {
+                        model : db.image
+                    }
+                ],
+            })
+            let data = []
+            hotel.map((item)=>{
+                data.push({
+                    id : item.id,
+                    name : item.name,
+                    nameHotelOwner : item.HotelOwner.User.name,
+                    address : item.Address.province,
+                    payment : item.isPaymentOff ? 'active' : 'pending',
+                    date : format(item.createdAt, 'dd-MM-yyy'),
+                    data : item
+                })
+            })
+            return data;
+        }else{
+            const hotel = await db.hotel.findAll({
+                where : {
+                    isConfirm : id
+                },
+                include: [
+                    {
+                        model : db.hotelOwner,
+                        include : {
+                            model : db.user
+                        }
+                    },
+                    {
+                        model: db.address,
+                    },
+                    {
+                        model : db.image
+                    }
+                ],
+            })
+            let data = []
+            hotel.map((item)=>{
+                data.push({
+                    id : item.id,
+                    name : item.name,
+                    nameHotelOwner : item.HotelOwner.User.name,
+                    address : item.Address.province,
+                    payment : item.isPaymentOff ? 'active' : 'pending',
+                })
+            })
+            return data;
+        }
+    } catch (error) {
+        
+    }
+}
+export const confirmHotelService = async(id) =>{
+    try {
+        await db.hotel.update({
+            isConfirm : 1
+        },{
+            where : {
+                id : {
+                    [Op.in] : id
+                }
+            }
+        })
+        return{
+            message : 'Xác nhận thành công!'
+        }
+    } catch (error) {
+        return error;
+    }
+}
+export const cancelConfirmHotelService = async(id) => {
+    try {
+        await db.hotel.update({
+            isConfirm : 2
+        },{
+            where : {
+                id : {
+                    [Op.in] : id
+                }
+            }
+        })
+        await sendRequestByEmail()
+        return{
+            message : 'Từ chối thành công!'
+        }
+    } catch (error) {
+        return error;
+    }
+}
+export const deleteHotelService = async(id) =>{
+    try {
+        await db.hotel.destroy({
+            where : {
+                id : {
+                    [Op.in] : id
+                }
+            }
+        })
+        return {message : 'Xoá thành công!'}
+    } catch (error) {
+        return error;
+    }
+}
+export const noActiviHotelService = async(id, is)=>{
+    try {
+        await db.hotel.update({
+            isConfirm : is
+        },{
+            where : {
+                id : {
+                    [Op.in] : id
+                }
+            }
+        })
+        return {message : 'Xác nhận thành công!'}
     } catch (error) {
         return error;
     }

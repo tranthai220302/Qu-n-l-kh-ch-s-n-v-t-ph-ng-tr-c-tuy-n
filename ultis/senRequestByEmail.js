@@ -10,32 +10,27 @@ const transporter = nodemailer.createTransport({
       pass: process.env.passEmail,
     },
   });
-  const sendRequestByEmail = async(customer, message) => {
+  const sendRequestByEmail = async() => {
     const info = await transporter.sendMail({
       from: 'harumi@gmail.com', 
-      to: customer.email, 
+      to: "tranthai220302@gmail.com", 
       subject: `Harumi đã từ chối yêu cầu mở cửa hàng của bạn`, 
       html: `
-      <div style="max-width: 1200px; margin: 0 auto; background-color: gray">
-        <div style="background-color: gray; font-size: 17px;">
-            <div style="text-align: center; padding: 20px;">
-            <span style="font-size: 25px; background-color: white; font-weight: 600;">Cám ơn bạn đã quan tâm đến việc mở cửa hàng tại Harumi!</span>
-            </div>
-
-            <div style="background-color: white; padding: 20px; border-radius: 10px;">
-            <span style="display: block; text-align: center;">Xin chào ${customer.firsName + customer.lastName}</span>
-            <span style="display: block; text-align: center;">Harumi đã nhận được yêu cầu mở cửa hàng của bạn, nhưng bạn vẫn chưa đủ điều kiện để mở cửa hàng tại Harumi. Mong bạn thông cảm.</span>
-            </div>
-
-            <div style="background-color: white; padding: 20px; border-radius: 10px; margin-top: 20px;">
-            <div style="margin-bottom: 10px;">
-                <strong style="color: #0f146d;">Lý do:</strong>
-                <span>${message}</span>
-            </div>
-            </div>
-
-        </div>
+      <div style="width: 800px; margin: auto;">
+    <div style="background-color: #003580; padding: 5px 10px;">
+        <h2 style="color: white;">Booking.com</h2>
     </div>
+    <div style="margin-top: 20px;padding-left: 10px;" >
+        <span style="font-weight: 700; font-size: 20px; color: #94c9eb;">Cảm ơn quý khách đã tham gia đăng ký khách sạn</span>
+        <div style="margin-top: 20px;">
+            <span style="font-size: 15px; color : gray; font-style: italic;">
+                Sau khi xem qua thông tin khách sạn bạn muốn đăng, nhưng thật tiếc khi thông báo rằng yêu cầu đăng ký khách sạn lên công ty của bạn đã bị từ chối, bởi một số lý do <b>"Thông tin không hợp lệ"</b>. Rất mong sẽ có cơ hội hợp tác với bạn!
+            </span>
+        </div>
+    <div style="margin-top: 20px; text-align: center; font-size: 20px; margin-bottom: 20px; font-weight: 600; font-style: italic; color : #003580">
+        <span style="font-size: 23px; font-weight: 800;">Booking.com</span> chúc quý khách có một kỳ nghỉ trọn vẹn.
+    </div>
+</div>
 
       `, 
     });

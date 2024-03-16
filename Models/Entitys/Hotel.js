@@ -49,8 +49,8 @@ const Hotel = (sequelize) => sequelize.define('Hotel', {
         default : true
     },
     isConfirm : {
-        type : DataTypes.BOOLEAN,
-        defaultValue : false
+        type : DataTypes.INTEGER,
+        defaultValue : 0
     }
 })
 

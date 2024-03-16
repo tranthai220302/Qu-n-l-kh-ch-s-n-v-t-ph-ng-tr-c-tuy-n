@@ -1,6 +1,7 @@
 import { Op } from "sequelize";
-import { createHotelFavouriteService, createHotelServices, deleteHotelFavouriteService, getHotelByIdServices, getHotelByOwnerNoConfirmService, getHotelByQueryService, getHotelFavouriteByCustomerService, getHotelsFavouriteServices, getQueryByHotelServices, getServiceService, searchHotelService } from "../Models/Services/HotelService.js";
+import { cancelConfirmHotelService, confirmHotelService, createHotelFavouriteService, createHotelServices, deleteHotelFavouriteService, deleteHotelService, getHotelByIdServices, getHotelByNoConfirmService, getHotelByOwnerNoConfirmService, getHotelByQueryService, getHotelFavouriteByCustomerService, getHotelsFavouriteServices, getQueryByHotelServices, getServiceService, noActiviHotelService, searchHotelService } from "../Models/Services/HotelService.js";
 import createError from "../ultis/createError.js"
+import { getRevenueOwnerByHotelsService } from "../Models/Services/HotelOwnerService.js";
 
 export const createHotel = async (req, res, next) =>{
     try {
@@ -148,6 +149,9 @@ export const getHotelByQuery = async(req, res, next) =>{
                     ...(data.payment && data.payment.split(',').length > 0 && {
                         isPaymentOff : data.payment.split(',')
                     })
+                },
+                {
+                    isConfirm : 1
                 }
             ]
         }
@@ -210,11 +214,62 @@ export const getService = async(req, res, next) =>{
 }
 export const getHotelByOwnerNoConfirm = async(req, res, next) =>{
     try {
-        if(req.idRole !== 2) return createError(400, 'Bạn không có quyền này!')
+        if(req.idRole !== 2) return next(createError(400, 'Bạn không có quyền này!'))
         const hotel = await getHotelByOwnerNoConfirmService(req.id, req.params.id);
         if(hotel instanceof Error) return next(hotel);
         res.status(200).send(hotel)
     } catch (error) {
         next(error);
+    }
+}
+export const getHotelByNoConfirm= async(req, res, next) =>{
+    try {
+        if(req.idRole !== 3) return next(createError(400, 'Bạn không có quyền này!'));
+        const hotel = await getHotelByNoConfirmService(req.params.id);
+        if(hotel instanceof Error) return next(hotel);
+        res.status(200).send(hotel)
+    } catch (error) {
+        next(error)
+    }
+}
+export const confirmHotel = async(req, res, next) =>{
+    try {
+        if(req.idRole !== 3) return next(createError(400, 'Bạn không có quyền này!'));
+        const hotel = await confirmHotelService(req.body.id);
+        if(hotel instanceof Error) return next(hotel);
+        res.status(200).send(hotel)
+    } catch (error) {
+        next(error)
+    }
+}
+export const cancelConfirmHotel = async(req, res, next) =>{
+    try {
+        if(req.idRole !== 3) return next(createError(400, 'Bạn không có quyền này!'));
+        const hotel = await cancelConfirmHotelService(req.body.id);
+        if(hotel instanceof Error) return next(hotel);
+        res.status(200).send(hotel)
+    } catch (error) {
+        next(error)
+    }
+}
+export const deleteHotel = async(req, res, next) =>{
+    try {
+        if(req.idRole !== 3) return next(createError(400, 'Bạn không có quyền này!'));
+        console.log(req.body.id)
+        const hotel = await deleteHotelService(req.body.id);
+        if(hotel instanceof Error) return next(hotel);
+        res.status(200).send(hotel)
+    } catch (error) {
+        next(error)
+    }
+}
+export const noActiviHotel = async(req, res, next)=>{
+    try {
+        if(req.idRole !== 3) return next(createError(400, 'Bạn không có quyền này!'));
+        const hotel = await noActiviHotelService(req.body.id, req.params.is);
+        if(hotel instanceof Error) return next(hotel);
+        res.status(200).send(hotel)
+    } catch (error) {
+        next(error)
     }
 }

@@ -15,6 +15,8 @@ import routerAddress from "./Routes/AddressRoute.js";
 import routerQuestion from "./Routes/QuestionRoute.js";
 import routerCategoryItem from "./Routes/CategoryItemRoute.js";
 import routerOwnerHotel from "./Routes/OwnerHotelRoute.js";
+import routerItem from "./Routes/ItemRoute.js";
+import routerService from "./Routes/ServiceRoute.js";
 import { Server } from "socket.io";
 import routerFeedBack from "./Routes/FeedBackRoute.js";
 import path from "path";
@@ -46,12 +48,12 @@ try {
     console.error('Unable to connect to the database:', error);
 }
 
-// await db.sequelize.sync({
-//     alter: true,
-//     logging : ()=>{}
-// }).then(()=>{
-//     console.log('Update database success')
-// })
+await db.sequelize.sync({
+    alter: true,
+    logging : ()=>{}
+}).then(()=>{
+    console.log('Update database success')
+})
 await getAddress()
 //api
 app.use('/api/auth', routerAuth)
@@ -66,6 +68,8 @@ app.use('/api/address', routerAddress)
 app.use('/api/question', routerQuestion)
 app.use('/api/categoryItem', routerCategoryItem)
 app.use('/api/owner', routerOwnerHotel)
+app.use('/api/service', routerService)
+app.use('/api/item', routerItem)
 app.use((err, req, res, next)=>{
   const errorStatus = err.status || 500;
   const errorMessage = err.message || "Something went wrong!";

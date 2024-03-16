@@ -1,6 +1,6 @@
 import express from 'express'
 import { verifyjson } from '../middleware/jwt.js';
-import { createHotel, createHotelFavourite, deleteHotelFavourite, getHotelById, getHotelByOwnerNoConfirm, getHotelByQuery, getHotelsFavourite, getHotelsFavouriteByCustomer, getQueryByHotel, getService, searchHotel } from '../Controllers/HotelController.js';
+import { cancelConfirmHotel, confirmHotel, createHotel, createHotelFavourite, deleteHotel, deleteHotelFavourite, getHotelById, getHotelByNoConfirm, getHotelByOwnerNoConfirm, getHotelByQuery, getHotelsFavourite, getHotelsFavouriteByCustomer, getQueryByHotel, getService, noActiviHotel, searchHotel } from '../Controllers/HotelController.js';
 const routerHotel = express.Router()
 routerHotel.post('/create', verifyjson, createHotel);
 routerHotel.get('/favourite', getHotelsFavourite);
@@ -13,4 +13,9 @@ routerHotel.get('/favourite/customer', verifyjson, getHotelsFavouriteByCustomer)
 routerHotel.delete('/delete/favourite/:id', verifyjson, deleteHotelFavourite)
 routerHotel.get('/list/services', getService)
 routerHotel.get('/list/owner/noConfirm/:id',verifyjson, getHotelByOwnerNoConfirm)
+routerHotel.get('/admin/noConfirm/:id',verifyjson, getHotelByNoConfirm);
+routerHotel.post('/admin/confirm',verifyjson, confirmHotel);
+routerHotel.post('/admin/cancel',verifyjson, cancelConfirmHotel);
+routerHotel.post('/admin/deleteActi',verifyjson, deleteHotel);
+routerHotel.post('/admin/noActivi/:is',verifyjson, noActiviHotel);
 export default routerHotel;
