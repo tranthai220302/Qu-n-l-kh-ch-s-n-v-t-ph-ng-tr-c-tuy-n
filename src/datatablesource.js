@@ -22,19 +22,9 @@ export const userColumns = [
   {
     field: "phone",
     headerName: "Phone",
-    width: 100,
+    width: 110,
   },
-  {
-    field: "address",
-    headerName: "Address",
-    width: 300,
-    renderCell: (params) => {
-      return (
-        <div className={`cellWithStatus ${params.row.address}`}>
-        </div>
-      );
-    },
-  },
+
   {
     field: "status",
     headerName: "Trạng thái",
@@ -48,7 +38,158 @@ export const userColumns = [
     },
   },
 ];
+export const ownerColumns = [
+  { field: "id", headerName: "ID", width: 70 },
+  {
+    field: "name",
+    headerName: "Tên",
+    width: 230,
+    renderCell: (params) => {
+      return (
+        <div className="cellWithImg">
+          <img className="cellImg" src={params.row.avatar ? params.row.avatar : "https://as2.ftcdn.net/v2/jpg/03/31/69/91/1000_F_331699188_lRpvqxO5QRtwOM05gR50ImaaJgBx68vi.jpg" } alt="avatar" />
+          {params.row.name ? params.row.name : "Nguyễn Văn A"}
+        </div>
+      );
+    },
+  },
+  {
+    field: "email",
+    headerName: "Email",
+    width: 230,
+  },
 
+  {
+    field: "phone",
+    headerName: "Phone",
+    width: 110,
+  },
+
+  {
+    field: "address",
+    headerName: "Địa chỉ",
+    width: 200,
+    renderCell: (params) => {
+      return (
+        <div className={`cellWithStatus ${params.row.status}`}>
+          {params.row.address}
+        </div>
+      );
+    },
+  },
+];
+export const HotelColumns = [
+  { field: "id", headerName: "ID", width: 70 },
+  {
+    field: "name",
+    headerName: "Tên",
+    width: 250,
+    renderCell: (params) => {
+      return (
+        <div className="cellWithImg">
+          <img className="cellImg" src={params.row.img ? params.row.img : "https://as2.ftcdn.net/v2/jpg/03/31/69/91/1000_F_331699188_lRpvqxO5QRtwOM05gR50ImaaJgBx68vi.jpg" } alt="avatar" />
+          {params.row.name ? params.row.name : "Nguyễn Văn A"}
+        </div>
+      );
+    },
+  },
+  {
+    field: "nameHotelOwner",
+    headerName: "Người quản lý",
+    width: 230,
+  },
+
+  {
+    field: "address",
+    headerName: "Địa chỉ",
+    width: 200,
+  },
+
+  {
+    field: "payment",
+    headerName: "Phương thức thanh toán",
+    width: 200,
+    renderCell: (params) => {
+      return (
+        <div className={`cellWithStatus ${params.row.payment}`}>
+          {params.row.payment === 'active' ? 'Thanh toán tại quầy' : "Thanh toán online"}
+        </div>
+      );
+    },
+  },
+  {
+    field: "date",
+    headerName: "Ngày đăng ký",
+    width: 100,
+  },
+];
+export const serverColoumn = [
+  {
+    field: "id",
+    headerName: "ID",
+    width: 150,
+  },
+
+  {
+    field: "name",
+    headerName: "Tên",
+    width: 300,
+  },
+]
+export const itemColoumn = [
+  {
+    field: "id",
+    headerName: "ID",
+    width: 230,
+  },
+
+  {
+    field: "name",
+    headerName: "Tên",
+    width: 200,
+  },
+  
+]
+export const HotelConfirmColumns = [
+  { field: "id", headerName: "ID", width: 70 },
+  {
+    field: "name",
+    headerName: "Tên",
+    width: 250,
+    renderCell: (params) => {
+      return (
+        <div className="cellWithImg">
+          <img className="cellImg" src={params.row.avatar ? params.row.avatar : "https://as2.ftcdn.net/v2/jpg/03/31/69/91/1000_F_331699188_lRpvqxO5QRtwOM05gR50ImaaJgBx68vi.jpg" } alt="avatar" />
+          {params.row.name ? params.row.name : "Nguyễn Văn A"}
+        </div>
+      );
+    },
+  },
+  {
+    field: "nameHotelOwner",
+    headerName: "Người quản lý",
+    width: 230,
+  },
+
+  {
+    field: "address",
+    headerName: "Địa chỉ",
+    width: 200,
+  },
+
+  {
+    field: "payment",
+    headerName: "Phương thức thanh toán",
+    width: 200,
+    renderCell: (params) => {
+      return (
+        <div className={`cellWithStatus ${params.row.payment}`}>
+          {params.row.payment === 'active' ? 'Thanh toán tại quầy' : "Thanh toán online"}
+        </div>
+      );
+    },
+  },
+];
 //temporary data
 export const userRows = [
   {

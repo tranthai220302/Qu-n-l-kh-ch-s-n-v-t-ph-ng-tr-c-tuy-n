@@ -11,14 +11,40 @@ import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
 import SettingsSystemDaydreamOutlinedIcon from "@mui/icons-material/SettingsSystemDaydreamOutlined";
 import PsychologyOutlinedIcon from "@mui/icons-material/PsychologyOutlined";
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { DarkModeContext } from "../../../context/darkModeContext";
 import { useContext } from "react";
-
+import TurnedInIcon from '@mui/icons-material/TurnedIn';
+import newRequest from "../../../ults/newRequest";
+import { useState } from "react";
+import Backdrop from '@mui/material/Backdrop';
+import { Alert, Button, CircularProgress } from '@mui/material';
 const Sidebar = () => {
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null)
+  const navigate = useNavigate();
+  const handleLogout = () =>{
+    setIsLoading(true)
+    newRequest.post('/auth/logout').then((res)=>{
+      localStorage.removeItem('currentUser')
+      setIsLoading(false);
+      setError(null);
+      navigate('/')
+    }).catch((error)=>{
+      setIsLoading(false)
+      setError(error)
+      console.log(error)
+    })
+  }
   const { dispatch } = useContext(DarkModeContext);
   return (
     <div className="sidebar">
+          <Backdrop
+            sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+            open={isLoading}
+            >
+            <CircularProgress color="inherit" />
+          </Backdrop>
       <div className="topSideBar">
         <Link to="/admin" style={{ textDecoration: "none" }}>
           <span className="logo">lamadmin</span>
@@ -31,58 +57,53 @@ const Sidebar = () => {
           <Link to="/admin" style={{ textDecoration: "none" }}>
             <li>
               <DashboardIcon className="icon" />
-              <span>Dashboard</span>
+              <span>Trang chủ</span>
             </li>
           </Link>
           <p className="title">LISTS</p>
           <Link to="/admin/users" style={{ textDecoration: "none" }}>
             <li>
               <PersonOutlineIcon className="icon" />
-              <span>Users</span>
+              <span>Khách hàng</span>
             </li>
           </Link>
-          <Link to="/admin/products" style={{ textDecoration: "none" }}>
+          <Link to="/admin/hotels" style={{ textDecoration: "none" }}>
             <li>
               <StoreIcon className="icon" />
-              <span>Products</span>
+              <span>Khách sạn</span>
             </li>
           </Link>
-          <li>
-            <CreditCardIcon className="icon" />
-            <span>Orders</span>
-          </li>
-          <li>
-            <LocalShippingIcon className="icon" />
-            <span>Delivery</span>
-          </li>
-          <p className="title">USEFUL</p>
-          <li>
-            <InsertChartIcon className="icon" />
-            <span>Stats</span>
-          </li>
-          <li>
-            <NotificationsNoneIcon className="icon" />
-            <span>Notifications</span>
-          </li>
-          <p className="title">SERVICE</p>
+          <Link to="/admin/hotelowner" style={{ textDecoration: "none" }}>
+            <li>
+              <PersonOutlineIcon className="icon" />
+              <span>Chủ khách sạn</span>
+            </li>
+          </Link>
+          <p className="title">Other</p>
+          <Link to="/admin/service" style={{ textDecoration: "none" }}>
           <li>
             <SettingsSystemDaydreamOutlinedIcon className="icon" />
-            <span>System Health</span>
+            <span>Dịch vụ</span>
           </li>
+          </Link>
+          <Link to="/admin/item" style={{ textDecoration: "none" }}>
           <li>
-            <PsychologyOutlinedIcon className="icon" />
-            <span>Logs</span>
+            <TurnedInIcon className="icon" />
+            <span>Tiện nghi</span>
           </li>
+          </Link>
           <li>
             <SettingsApplicationsIcon className="icon" />
-            <span>Settings</span>
+            <span>Cài đặt</span>
           </li>
           <p className="title">USER</p>
+          <Link to="/admin/users/new" style={{ textDecoration: "none" }}>
           <li>
-            <AccountCircleOutlinedIcon className="icon" />
+          <AccountCircleOutlinedIcon className="icon" />
             <span>Profile</span>
           </li>
-          <li>
+          </Link>
+          <li onClick={()=>{handleLogout()}}>
             <ExitToAppIcon className="icon" />
             <span>Logout</span>
           </li>

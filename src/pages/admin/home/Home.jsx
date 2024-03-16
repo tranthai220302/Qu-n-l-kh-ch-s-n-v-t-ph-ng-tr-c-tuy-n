@@ -38,7 +38,7 @@ const Home = () => {
       <Sidebar />
       <div className="homeContainer1">
         <Navbar />
-        {isLoading && <div style={{width : '100%', display : 'flex', justifyContent : 'center', margin : 'auto', marginTop : '200px'}}><CircularProgressbar/></div>}
+        {isLoading && <div style={{width : '100%', display : 'flex', justifyContent : 'center', margin : 'auto', marginTop : '200px'}}><CircularProgress/></div>}
         {!isLoading && data && (
             <div className="widgets">
               <Widget type="customer" number={data.user} />
