@@ -84,6 +84,7 @@ const HomeHotel = () => {
         newRequest.get(`/hotel/list/owner/noConfirm/${is}`).then((res)=>{
             if(is==0){
                 setData(res.data);
+                console.log(res.data)
             }
             if(is==1){
                 setDataC(res.data);
@@ -131,7 +132,7 @@ const HomeHotel = () => {
     
             setRowsC(newRows);
         }
-    }, [data]);
+    }, [data, dataC]);
     const handleDelete = () =>{
         setIsLoadingDel(true)
         newRequest.post('/owner/delete', {
@@ -209,7 +210,7 @@ const HomeHotel = () => {
                 <div className="hotelActivity">
                     <h3>Các khách sạn đang đăng ký</h3>
                     <div style={{ height: 400, width: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', gap: '10px' }}>
-                        {rows && !isLoading && rows.length > 0 && (
+                        {rows && !isLoading && (
                             <DataGrid
                                 rows={rows}
                                 columns={columns}

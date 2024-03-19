@@ -31,6 +31,8 @@ import HotelOwner from "./pages/admin/hotelOwner/HotelOwner";
 import Service from "./pages/admin/service/Service";
 import Item from "./pages/admin/item/Item";
 import { useNavigate } from "react-router-dom";
+import RoomHotel from "./pages/hotelOwner/room/RoomHotel";
+import MapContainer from "./compoments/customer/map/MapContainer";
 function App() {
   const { darkMode } = useContext(DarkModeContext);
   const [loggedInUser, setLoggedInUser] = useState(JSON.parse(localStorage.getItem('currentUser')));
@@ -72,21 +74,15 @@ function App() {
               />
             </Route>
           </Route>
-            <Route path="/hotelAdmin" element={
-              loggedInUser?.idRole == 3 ? (
-                <Navigate to="/admin" />
-              ) : loggedInUser?.idRole == 2 ? (
-                <HomeHotel/>
-              ) : (
-                <Navigate to="/" />
-              )
-            }>
+            <Route path="/hotelAdmin">
+              <Route index element={<HomeHotel/>} />
               <Route path="revenue" element={<Revenue />} />
               <Route path="addHotel" element={<AddHotel />} >
               </Route>
               <Route path="inforHotel" element={<InforHotel />} />
               <Route path="review" element={<ReviewOwner />} />
               <Route path="question" element={<QuestionOwner />} />
+              <Route path="roombook" element={<RoomHotel />} />
             </Route>
             <Route path="loginOwner" element={<LoginOwner />} />
             <Route path="registerOwner" element={<RegisterOwner />} />
@@ -100,6 +96,7 @@ function App() {
             <Route path="/payment/succees/:id" element={<PaymentSuccess />} />
             <Route path="/roomBooking" element={<RoomBooking />} />
             <Route path="/hotelFavourite" element={<HotelFavourite />} />
+            <Route path="/map" element={<MapContainer />} />
         </Routes>
       </BrowserRouter>
     </div>

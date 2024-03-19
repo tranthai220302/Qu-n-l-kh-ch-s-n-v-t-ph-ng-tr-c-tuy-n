@@ -84,11 +84,12 @@
 
 .listResult {
   flex: 3;
-  width: 78%;
+  width: 75%;
 }
 .leftList{
   display: flex;
   flex-direction: column;
+  width: 25%;
 }
 .nameHotel{
   display: flex;

@@ -186,7 +186,7 @@ const NavbarOwner = ({user, setUser, type, newValue}) => {
         <Tab label="Thống kê doanh số" sx={{color: 'white', fontWeight: '500', textTransform: 'capitalize'}} onClick={()=>{navigate('/hotelAdmin/revenue')}}/>
         <Tab label="Đánh giá" sx={{color: 'white', fontWeight: '500', textTransform: 'capitalize'}} onClick={()=>{navigate('/hotelAdmin/review')}}/>  
         <Tab label="Câu hỏi Khách hàng" sx={{color: 'white', fontWeight: '500', textTransform: 'capitalize'}} onClick={()=>{navigate('/hotelAdmin/question')}}/>
-        <Tab label="Chỉnh sửa đồng loạt" sx={{color: 'white', fontWeight: '500', textTransform: 'capitalize'}} />
+        <Tab label="Đặt phòng" sx={{color: 'white', fontWeight: '500', textTransform: 'capitalize'}} onClick={()=>{navigate('/hotelAdmin/roombook')}}/>
         <DataThresholdingIcon sx={{marginTop : '10px', marginRight : '-10px', color: 'white'}}/>
         <Tab label="Dữ liệu thị trường" sx={{color: 'white', fontWeight: '500', textTransform: 'capitalize'}} />
       </Tabs>

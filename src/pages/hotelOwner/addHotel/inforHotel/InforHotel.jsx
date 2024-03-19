@@ -38,6 +38,8 @@ import AddRoom from './AddRoom/AddRoom'
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom'
 import { clearRooms } from '../../../../redux/actions/roomAction'
+import axios from 'axios'
+import MapAddress from './MapAddress/MapAddress'
 const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
     ...theme.typography.body2,
@@ -45,15 +47,13 @@ const Item = styled(Paper)(({ theme }) => ({
     textAlign: 'center',
     color: theme.palette.text.secondary,
   }));
-const steps = ['', '', '', '','', '', '', '', ''];
+const steps = ['', '', '', '','', '', '', '', '',''];
 let data = [
     '01:00', '02:00', '03:00', '04:00', '05:00', '06:00', '07:00',
     '08:00', '09:00', '10:00', '11:00', '12:00', '13:00', '14:00',
     '15:00', '16:00', '17:00', '18:00', '19:00', '20:00', '21:00',
     '22:00', '23:00', '24:00'
 ];
-
-console.log(data);
 const blue = {
     100: '#DAECFF',
     200: '#b6daff',
@@ -115,6 +115,8 @@ const InforHotel = () => {
     const [messageError, setMessageError] = useState(null)
     const [imgBtn , setImgBtn] = useState(false)
     const [desc, setDesc] = useState('')
+    const [lat, setLat] = useState(null);
+    const [lng, setLng] = useState(null)
     const [state, setState] = React.useState({
         open: false,
         vertical: 'top',
@@ -191,60 +193,6 @@ const InforHotel = () => {
     const handleBack = () => {
       setActiveStep((prevActiveStep) => prevActiveStep - 1);
     };
-  
-    // const handleStep = (step) => () => {
-    //     switch (step-1) {
-    //         case 0:
-    //             if(!address.province || !address.district || !address.ward || !address.numberHome){
-    //                 setMessageError('Vui lòng nhập địa chỉ chính xác!')
-    //                 setState({
-    //                     openSnack: true,
-    //                     vertical: 'top',
-    //                     horizontal: 'right',
-    //                 })
-    //             }else setActiveStep(step);
-    //             break;
-    //         case 1:
-    //             if(!nameHotel || !desc){
-    //                 setMessageError('Vui lòng nhập đầy đủ thông tin!')
-    //                 setState({
-    //                     openSnack: true,
-    //                     vertical: 'top',
-    //                     horizontal: 'right',
-    //                 })
-    //             }else setActiveStep(step);
-    //             break;
-    //         case 2:
-    //             if(idService.length == 0){
-    //                 setMessageError('Vui lòng chọn dịch vụ!')
-    //                 setState({
-    //                     openSnack: true,
-    //                     vertical: 'top',
-    //                     horizontal: 'right',
-    //                 })
-    //             }else setActiveStep(step);
-    //             break;
-    //         case 7:
-    //             if(!six){
-    //                 setMessageError('Vui lòng nhập đầy đủ thông tin!')
-    //             }else setActiveStep(step);
-    //             break
-    //         case 5:
-    //             if(!timeCheckIn.from  || !timeCheckIn.to || !timeCheckOut.from || !timeCheckOut.to){
-    //                 setMessageError('Vui lòng nhập đầy đủ thông tin!')
-    //                 setState({
-    //                     openSnack: true,
-    //                     vertical: 'top',
-    //                     horizontal: 'right',
-    //                 })
-    //             }else setActiveStep(step);
-    //             break
-    //         default:
-    //             setActiveStep(step);
-    //             break;
-    //     }
-    // };
-  
     const handleComplete = () => {
       const newCompleted = completed;
       newCompleted[activeStep] = true;
@@ -273,19 +221,35 @@ const InforHotel = () => {
             setError(error.response.data)
         })
     }
+    const getLatLngMap = (activeStep) =>{
+        if(!address.province || !address.district || !address.ward || !address.numberHome){
+            setMessageError('Vui lòng nhập địa chỉ chính xác!')
+            setState({
+                openSnack: true,
+                vertical: 'top',
+                horizontal: 'right',
+            })
+        }else{
+            const nameAddress = address.numberHome + ", " + address.ward + ", " + address.district + ", " + address.province + ", Việt Nam";
+            console.log(address)
+            axios.get(`https://api.map4d.vn/sdk/v2/geocode?key=${"f66a688eeb905a318d0b2f4303d63da1"}&address=${nameAddress}`).then((res)=>{
+                setLat(res.data.result[0].location.lat)
+                setLng(res.data.result[0].location.lng)
+                handleComplete()
+            }).catch((error)=>{
+                console.log(error)
+                setMessageError('Chúng tôi không tìm thấy địa chỉ của bạn trên bản đồ!')
+                setState({
+                    openSnack: true,
+                    vertical: 'top',
+                    horizontal: 'right',
+                })
+            })
+        }
+    }
     const checkError = (step) => {
         switch (step) {
-            case 0:
-                if(!address.province || !address.district || !address.ward || !address.numberHome){
-                    setMessageError('Vui lòng nhập địa chỉ chính xác!')
-                    setState({
-                        openSnack: true,
-                        vertical: 'top',
-                        horizontal: 'right',
-                    })
-                }else handleComplete()
-                break;
-            case 1:
+            case 2:
                 if(!nameHotel || !desc){
                     setMessageError('Vui lòng nhập đầy đủ thông tin!')
                     setState({
@@ -295,7 +259,7 @@ const InforHotel = () => {
                     })
                 }else handleComplete()
                 break;
-            case 2:
+            case 3:
                 if(idService.length == 0){
                     setMessageError('Vui lòng chọn dịch vụ!')
                     setState({
@@ -339,7 +303,9 @@ const InforHotel = () => {
                 name : nameHotel,
                 numStars : numStar,
                 description : desc,
-                img : img   
+                img : img   ,
+                lat,
+                lng
             }).then((res)=>{
                 setIsLoadingCreate(false)
                 setMessageError(false)
@@ -430,12 +396,27 @@ const InforHotel = () => {
                         )}
                         </div>
                         )
-                    }
+                    },
                     {
                         activeStep == 1 && (
+                            <div className="containerInforHotel1">
+                            <h2>Đây là vị trí khách sạn trên bản đồ</h2>
+                            <Paper sx={{width : '500px', display: 'flex', flexDirection : 'column', alignItems : 'center', padding : '10px 30px', justifyContent : 'space-around'}}>
+                                    <Stack direction={'column'} width={'100%'} spacing={1} marginBottom={'20px'}>
+                                        <span style={{fontWeight : '600'}} className='titleH2'>Đây là vị trí chúng tôi sẽ hiển thị cho khách hàng trên trang của mình. Hãy điều chỉnh bản đồ để ghim nằm đúng vị trí của chỗ nghỉ Quý vị.</span>
+                                    </Stack>
+                                    <Stack direction={'column'} width={'100%'} spacing={1}>
+                                        <MapAddress lat={lat} lng = {lng} />
+                                    </Stack>
+                            </Paper>
+                        </div>
+                        )
+                    },
+                    {
+                        activeStep == 2 && (
                         <div className="containerInforHotel1">
-                            <h2 style={{width : '560px'}}>Chon chúng tôi biêt thêm về thông tin khách sạn của quý vị</h2>
-                            <Paper sx={{width : '500px', height : '560px', display: 'flex', flexDirection : 'column', alignItems : 'center', padding : '10px 30px', justifyContent : 'space-around'}}>
+                            <h2 style={{width : '560px'}}>Cho chúng tôi biêt thêm về thông tin khách sạn của quý vị</h2>
+                            <Paper sx={{width : '500px', display: 'flex', flexDirection : 'column', alignItems : 'center', padding : '10px 30px', justifyContent : 'space-around'}}>
                                     <Stack direction={'column'} width={'100%'} spacing={1} borderBottom='1px solid #e7e7e7' paddingBottom={'20px'}>
                                         <span style={{fontWeight : '600'}}>Tên khách sạn</span>
                                         <TextField
@@ -475,7 +456,7 @@ const InforHotel = () => {
                         )
                     }
                     {
-                        activeStep == 2 && (
+                        activeStep == 3 && (
                         <div className="containerInforHotel1">
                             <h2 style={{width : '400px'}}>Khách có thể sử dụng gì tại khách sạn của Quý vị ?</h2>
                             <div style={{display : 'flex', gap : '20px'}}>
@@ -505,7 +486,7 @@ const InforHotel = () => {
                         )
                     }
                     {
-                        activeStep == 3 && (
+                        activeStep == 4 && (
                         <div className="containerInforHotel1">
                             <h2 style={{width : '400px'}}>Thông tin bữa sáng ?</h2>
                             <div style={{display : 'flex', gap : '20px'}}>
@@ -530,7 +511,7 @@ const InforHotel = () => {
                         )
                     }
                     {
-                        activeStep == 4 && (
+                        activeStep == 5 && (
                         <div className="containerInforHotel1">
                             <h2 style={{width : '500px'}}>Hãy cho chúng tôi biết về tình hình chỗ đậu xe tại khách sạn của Quý vị ?</h2>
                             <div style={{display : 'flex', gap : '20px'}}>
@@ -555,7 +536,7 @@ const InforHotel = () => {
                         )
                     }
                     {
-                        activeStep == 5 && (
+                        activeStep == 6 && (
                         <div className="containerInforHotel1">
                             <h2 style={{width : '500px'}}>Quy định chung</h2>
                             <div style={{display : 'flex', gap : '20px'}}>
@@ -665,12 +646,12 @@ const InforHotel = () => {
                         )
                     }
                     {
-                        activeStep == 6 && (
+                        activeStep == 7 && (
                             <ImageHotel selectedImages={selectedImages} setSelectedImages = {setSelectedImages}/>
                         )
                     }
                     {
-                        activeStep == 7 && (
+                        activeStep == 8 && (
                         <div className="containerInforHotel1">
                             <h2 style={{width : '500px'}}>Thanh toán</h2>
                             <div style={{display : 'flex', gap : '20px'}}>
@@ -695,7 +676,7 @@ const InforHotel = () => {
                         )
                     }
                     {
-                        activeStep == 8 && (
+                        activeStep == 9 && (
                             <div className='containerSuccessInfor'>
                                 <div className="itemSucess">
                                     <table style={{width : '100%'}}>
@@ -810,9 +791,13 @@ const InforHotel = () => {
                             )
                         }
                     <Box sx={{ flex: '1 1 auto' }} />
-                    {activeStep == 7     ? (
+                    {activeStep == 8 ? (
                         <Button onClick={handleCreateHotel} sx={{ mr: 1 }}>
                             OK
+                        </Button>
+                    ) : activeStep == 0 ?  (
+                        <Button onClick={()=>getLatLngMap(activeStep)} sx={{ mr: 1 }}>
+                            Next
                         </Button>
                     ) : (
                         <Button onClick={()=>checkError(activeStep)} sx={{ mr: 1 }}>

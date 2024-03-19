@@ -27,6 +27,7 @@ import Footer from "../../../compoments/customer/footer/Footer";
 import { getData } from "../../../ults/getData";
 import Skeleton from '@mui/material/Skeleton';
 import newRequest from "../../../ults/newRequest";
+import ModalMap from "../../../compoments/customer/map/ModalMap";
 const ListCustomer = () => {
   const location = { lat: 16.047199, lng: 108.219955 }
   const [open, setOpen] = useState(false)
@@ -48,6 +49,7 @@ const ListCustomer = () => {
   const [isEat, setIsEat] = useState(null);
   const [isPayment, setIsPayment] = useState([])
   const [itemSearch, setIitemSearch] = useState([])
+  const [dataMap, setDataMap] = useState([]);
   const [date, setDate] = useState(JSON.parse(localStorage.getItem('date')) || [
     {
       startDate: new Date(),
@@ -85,6 +87,7 @@ const ListCustomer = () => {
       setData(res.data.hotel)
       setNumPage(res.data.numPage)
       setLength(res.data.length) 
+      setDataMap(res.data.dataMap)
     }).catch((error)=>{
       setIsLoading(false);
       setError(error);
@@ -197,7 +200,7 @@ const ListCustomer = () => {
       <NavCountry />
         <div className="listWrapper">
           <div className="leftList">
-              <MapContainer location={location} />
+              <ModalMap data = {dataMap} />
               <SideBarCustomer 
                 setValue2 = {setValue2} 
                 value2 = {value2}

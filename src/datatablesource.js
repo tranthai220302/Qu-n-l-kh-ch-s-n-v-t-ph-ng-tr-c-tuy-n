@@ -78,6 +78,45 @@ export const ownerColumns = [
     },
   },
 ];
+export const roomColumns = [
+  {field : 'id', headerName : 'Mã phòng', width : 150},
+  {
+    field : 'price', 
+    headerName : 'Giá/đêm', 
+    width : 150,
+    renderCell : (params) =>{
+      return (
+        <div className = "cellWithImg">
+          <span style={{color : 'red'}}>{(params.row.price).toLocaleString('en-US')} VND</span>
+        </div>
+      )
+    }
+  },
+  {field : 'person', headerName : 'Người', width : 150},
+  {
+    field : 'customer',
+    headerName : "Khách hàng",
+    width : 200,
+    renderCell : (params) =>{
+      return (
+      <div className = "cellWithImg">
+        <span>{(params.row.customer)}</span>
+      </div>
+      )
+    }
+  },
+  {
+    field : 'numRoom',
+    headerName : 'Số phòng',
+    width : 100,
+  },
+  {
+    field : 'hotel',
+    headerName : 'Khách sạn',
+    width : 200
+  }
+
+]
 export const HotelColumns = [
   { field: "id", headerName: "ID", width: 70 },
   {

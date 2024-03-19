@@ -62,7 +62,7 @@ export default function LoginCustomer() {
         localStorage.setItem('currentUser', JSON.stringify(res.data))
         if(res.data.idRole == 1){
           navigate('/')
-        }else{
+        }else if(res.data.idRole == 3){
           navigate('/admin')
         }
     }).catch((error)=>{

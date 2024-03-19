@@ -116,7 +116,7 @@ export default function SideBarCustomer({setValue2, value2, categorySelect, setC
                 <div className={styles.title}>
                     Ngân sách của bạn mỗi đêm
                 </div>
-                <div>VND {value2[0]}.000.000 - VND {value2[1]}.000.000</div>
+                <div style={{fontSize : '13px', fontWeight : '500'}}>VND {value2[0]}.000.000 - VND {value2[1]}.000.000</div>
                 <Slider
                     getAriaLabel={() => 'Minimum distance shift'}
                     value={value2}
