@@ -13,19 +13,21 @@ const Address = (sequelize) => sequelize.define('Address', {
         type: DataTypes.STRING,
         allowNull: false,
     },
-    ward : {
-        type: DataTypes.STRING,
+    ward : {    
+        type: DataTypes.STRING, 
         allowNull: false,
     },
     numberHome : {
         type: DataTypes.STRING,
         allowNull: false,
     },
-    imgProvince : {
-        type : DataTypes.TEXT('long')
+    lat : {
+        type : DataTypes.FLOAT,
+        allowNull : true
     },
-    imgDistrict : {
-        type: DataTypes.TEXT('long')
+    lng : {
+        type : DataTypes.FLOAT,
+        allowNull : true
     }
 })
 

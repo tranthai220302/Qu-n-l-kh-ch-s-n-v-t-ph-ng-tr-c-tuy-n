@@ -195,3 +195,61 @@ export const getRoomBookServices = async(CustomerId) =>{
         return error;
     }
 }
+export const getRoomByHotelOwnerServices = async(HotelOwnerId, date) =>{
+    try {
+        console.log(date)
+        const user = await db.user.findOne({
+            where : {id : HotelOwnerId},
+            include : [
+                {
+                    model : db.hotelOwner
+                }
+            ]
+        })
+        const booking = await db.booking.findAll({
+            where : {
+                createdAT : {
+                    [Op.between] : [
+                        `${date} 00:00:00`,
+                        `${date} 23:59:59`
+                    ]
+                }
+            },
+            include : [
+                {
+                    model : db.hotel,
+                    where : {HotelOwnerId : user.HotelOwner.id},
+                    include : [
+                        {
+                            model : db.image    
+                        }
+                    ]
+                },
+                {
+                    model : db.price,
+                    as : 'price'
+                },
+                {
+                    model : db.customer
+                }
+            ]
+        })
+        let data = [];
+        booking.map((bookingItem)=>{
+            bookingItem.price.map((room)=>{
+                data.push({
+                    id : room.id,
+                    price : room.price,
+                    person : room.numberPerson,
+                    customer : bookingItem.Customer.nameBook,
+                    numRoom : room.BookingPriceRoom.numRoom,
+                    hotel : bookingItem.Hotel.name,
+                    img : bookingItem.Hotel.Images[0].filename
+                })
+            })
+        })
+        return data;
+    } catch (error) {
+        return error;
+    }
+}

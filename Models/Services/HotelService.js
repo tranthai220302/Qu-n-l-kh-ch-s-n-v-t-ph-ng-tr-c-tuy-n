@@ -8,8 +8,10 @@ import sendRequestByEmail from "../../ultis/senRequestByEmail.js";
 export const createHotelServices = async(data, id) =>{
     try {
         console.log(data)
-        const {address, service,img, ...res} = data
+        const {address, service,img,lat, lng, ...res} = data
         // //thêm địa chỉ
+        address.lat = lat;
+        address.lng = lng
         const addressNew = await db.address.create(address);
         if(!addressNew) return createError(400, 'Thêm địa chỉ không thành công');
         res.AddressId = addressNew.id;
@@ -289,12 +291,20 @@ export const getHotelByQueryService = async(wherePrice,queryDate, queryAddress, 
                     model : db.image
                 }
             ],
-        }) 
+        })
+        let dataMap = [];
+        num.map((item)=>{
+            dataMap.push({
+                location : [item.Address.lng,item.Address.lat],
+                address : item.name
+            })
+        })
         if(hotel.length === 0) return createError(400, 'Không tìm thấy khách sạn!');
         return {
             hotel,
             numPage : Math.ceil(num.length/bookPerPage),
-            length : num.length
+            length : num.length,
+            dataMap 
         };
     } catch (error) {
         return error;
@@ -491,7 +501,6 @@ export const getHotelByOwnerNoConfirmService = async(id, is) =>{
                 }
             ]
         })
-        if(hotel.length == 0) return createError(400, 'Không có khách sạn đang đăng ký!');
         return hotel;
     } catch (error) {
         return error;

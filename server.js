@@ -48,12 +48,12 @@ try {
     console.error('Unable to connect to the database:', error);
 }
 
-await db.sequelize.sync({
-    alter: true,
-    logging : ()=>{}
-}).then(()=>{
-    console.log('Update database success')
-})
+// await db.sequelize.sync({
+//     alter: true,
+//     logging : ()=>{}
+// }).then(()=>{
+//     console.log('Update database success')
+// })
 await getAddress()
 //api
 app.use('/api/auth', routerAuth)

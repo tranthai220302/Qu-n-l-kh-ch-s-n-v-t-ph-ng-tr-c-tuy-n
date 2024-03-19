@@ -1,4 +1,4 @@
-import { createRoomServices, getRoomBookServices, getRoomEmptyService } from "../Models/Services/RoomService.js";
+import { createRoomServices, getRoomBookServices, getRoomByHotelOwnerServices, getRoomEmptyService } from "../Models/Services/RoomService.js";
 import createError from "../ultis/createError.js";
 
 export const createRoom = async(req, res, next)=>{
@@ -25,6 +25,16 @@ export const getRoomEmpty = async(req, res, next) =>{
 export const getRoomBook = async(req, res, next) =>{
     try {
         const room = await getRoomBookServices(req.id);
+        if(room instanceof Error) return next(room);
+        return res.status(200).send(room)
+    } catch (error) {
+        next(error)
+    }
+}
+export const getRoomByHotelOwner = async(req, res, next) =>{
+    try {
+        if(req.idRole !== 2 && req.idRole !== 3) return next(createError(400, 'Bạn không có quyền này!'));
+        const room = await getRoomByHotelOwnerServices(req.id, req.query.date);
         if(room instanceof Error) return next(room);
         return res.status(200).send(room)
     } catch (error) {
