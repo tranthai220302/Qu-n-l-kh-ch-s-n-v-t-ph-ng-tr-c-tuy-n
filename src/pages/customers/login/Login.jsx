@@ -60,9 +60,12 @@ export default function LoginCustomer() {
         setError(false)
         setUser(res.data)
         localStorage.setItem('currentUser', JSON.stringify(res.data))
-        if(res.data.idRole == 1){
+        console.log(res.data.idRole)
+        if(res.data.idRole === 1){
           navigate('/')
-        }else if(res.data.idRole == 3){
+        }
+        if(res.data.idRole === 3){
+          console.log('3')
           navigate('/admin')
         }
     }).catch((error)=>{

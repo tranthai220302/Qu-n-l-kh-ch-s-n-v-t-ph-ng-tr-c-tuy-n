@@ -122,7 +122,7 @@ const SearchItem = ({data, options}) => {
           <span  style={{fontSize : '13px', textDecoration : 'line-through', color: 'red'}}>VND {(data.Rooms[0].PriceRooms[0].price).toLocaleString('en-US')}</span>
           <span className="siPrice" style={{fontSize : '16px', fontWeight : '600'}}>VND {(data.Rooms[0].PriceRooms[0].price).toLocaleString('en-US')}</span>
           <span className="siTaxOp">Đã bao gồm thuế và phí</span>
-          <button className="siCheckButton" onClick={()=>{navigate(`/hotels/${data.id}`)}}>Xem chỗ trống</button>
+          <button className="siCheckButton" onClick = {()=>{window.open(`/hotels/${data.id}`)}}>Xem chỗ trống</button>
         </div>
       </div>
     </div>

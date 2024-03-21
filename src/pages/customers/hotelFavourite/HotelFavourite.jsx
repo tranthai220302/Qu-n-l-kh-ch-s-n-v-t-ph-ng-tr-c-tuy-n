@@ -18,11 +18,13 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import newRequest from '../../../ults/newRequest'
 import Snackbar from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
+import { useNavigate } from 'react-router-dom'
 const HotelFavourite = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(false);
     const [data, setData] = useState([]);
     const [open, setOpen] = useState(false);
+    const navigate = useNavigate();
     const [state, setState] = useState({
       open: false,
       vertical: 'top',
@@ -112,7 +114,7 @@ const HotelFavourite = () => {
                 >
                     {
                         data && data.map((item,i)=>(
-                            <SwiperSlide key={i}>
+                            <SwiperSlide key={i} onClick={()=>{navigate(`/hotels/${item.Hotel.id}`)}}>
                             <Card sx={{ width : '100%', position : 'relative', height: '90%' }}>
                                 <CardActionArea sx={{position : 'relative'}}>
                                     <CancelIcon sx={{position: 'absolute', top: 0, right: 0, color: 'white'}} onClick = {()=>{handleDelete(item.Hotel.id)}}/>

@@ -28,6 +28,7 @@ import { getData } from "../../../ults/getData";
 import Skeleton from '@mui/material/Skeleton';
 import newRequest from "../../../ults/newRequest";
 import ModalMap from "../../../compoments/customer/map/ModalMap";
+import PlaceIcon from '@mui/icons-material/Place';
 const ListCustomer = () => {
   const location = { lat: 16.047199, lng: 108.219955 }
   const [open, setOpen] = useState(false)
@@ -50,6 +51,8 @@ const ListCustomer = () => {
   const [isPayment, setIsPayment] = useState([])
   const [itemSearch, setIitemSearch] = useState([])
   const [dataMap, setDataMap] = useState([]);
+  const [nameAddress, setNamAddress] = useState([])
+  const [openSearch, setOpenSearch] = useState(false);
   const [date, setDate] = useState(JSON.parse(localStorage.getItem('date')) || [
     {
       startDate: new Date(),
@@ -70,7 +73,14 @@ const ListCustomer = () => {
   const handleSearch = () => {
     navigate("/hotels", { state: { destination, date, options } });
   };
-  
+  useEffect(()=>{
+    newRequest.get(`/address/search?name=${destination}`).then((res)=>{
+      setNamAddress(res.data.hits);
+      console.log(res.data.hits)
+    }).catch((error)=>{
+      console.log(error.response.data)
+    })
+  },[destination])
   const [openOptions, setOpenOptions] = useState(false);
   const [options, setOptions] = useState(JSON.parse(localStorage.getItem('options')) || {
     adult: 1,
@@ -102,18 +112,30 @@ const ListCustomer = () => {
       <Header type="list" />
       <div className="searchCon">
       <div className="headerSearch1">
-          <div className="headerSearchItem1">
+          <div className="headerSearchItem1" onClick={()=>{setOpenSearch(!openSearch)}}>
             <FontAwesomeIcon icon={faBed} className="headerIcon" />
             <input
               type="text"
               placeholder="Where are you going?"
               className="headerSearchInput"
-              defaultValue={destination}
+              value={destination}
               onChange={(e) => {
                 setDestination(e.target.value);
                 localStorage.setItem('destination', JSON.stringify(e.target.value))
               }}
             />
+              {openSearch && (
+                  <div className="aloSearch">
+                    <ul className="addresLis">
+                      {nameAddress.map((item)=>(
+                          <li className="addressItem" key={item.id} onClick={()=>{setDestination(item.name); setOpenSearch(false)}}>
+                              <PlaceIcon style={{color : 'black'}} />
+                              <span>{item.name}</span>
+                          </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
           </div>
           <div className="headerSearchItem2">
             <FontAwesomeIcon icon={faCalendarDays} className="headerIcon" />
@@ -259,7 +281,7 @@ const ListCustomer = () => {
               </div>
             </div>
             {
-              data && data.length > 0 && data.map((item)=>{
+              data.length > 0 && data.map((item)=>{
                 if(item.Rooms.length > 0){
                   return <SearchItem data = {item} options = {options} key={item.id}/>
                 }

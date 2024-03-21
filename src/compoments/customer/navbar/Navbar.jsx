@@ -73,7 +73,7 @@ const Navbar = ({user, setUser}) => {
         <div className="navItems">
         <Button  style={{textTransform: 'none', color: 'white', border: '1px solid gray', height : '35px'}} onClick={()=>{navigate('/loginOwner')}}>Đăng khách sạn của quý vị</Button>
         {
-          currentUser ? (
+          currentUser && currentUser.idRole == 1 ? (
             <div>
               <React.Fragment>
                 <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>

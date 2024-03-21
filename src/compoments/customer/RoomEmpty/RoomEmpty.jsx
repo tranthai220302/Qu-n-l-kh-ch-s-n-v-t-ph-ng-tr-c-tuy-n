@@ -12,7 +12,7 @@ import PersonIcon from '@mui/icons-material/Person';
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState, useRef, useEffect } from "react";
-import { format } from "date-fns";
+import { differenceInDays, format } from "date-fns";
 import { DateRange } from "react-date-range";
 import { CircularProgress, LinearProgress, Modal } from '@mui/material';
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
@@ -144,6 +144,9 @@ const RoomEmpty = ({hotel, id}) => {
           console.log(error.response.data)
         })
       }
+      const calculateDateDifference = (start, end) => {
+        return differenceInDays(new Date(end), new Date(start)) + 1;
+      };
     useEffect(()=>{
       setPriceTotal(total.reduce((acc, current)=> acc + current, 0));
       setNumber(numberRoomSelect.reduce((acc, current)=> acc + current, 0));
@@ -173,7 +176,7 @@ const RoomEmpty = ({hotel, id}) => {
               <DateRange
                 editableDateInputs={true}
                 defaultValue={destination}
-                onChange={(item) => setDate([item.selection])}
+                onChange={(item) => {setDate([item.selection])}}
                 moveRangeOnFirstSelection={false}
                 ranges={date}
                 className="date1"
@@ -234,7 +237,7 @@ const RoomEmpty = ({hotel, id}) => {
               </div>
             )}
           </div>
-          <div className="headerSearchItem4" onClick={()=>{handleSearch(  )}}>
+          <div className="headerSearchItem4" onClick={()=>{handleSearch()}}>
               Search
           </div>
         </div>
@@ -350,7 +353,7 @@ const RoomEmpty = ({hotel, id}) => {
                   <td style={{textAlign: 'left',padding: '8px',width: '20%', height: '100%',position: 'sticky', top: '20px' ,left: 0, zIndex: '99', backgroundColor : '#ebf3ff', boxShadow: 'rgba(0, 0, 0, 0.16) 0px 1px 4px, rgb(51, 51, 51) 0px 0px 0px 3px' }}>
                     <div style={{display: 'flex', flexDirection: 'column', background: '#ebf3ff', position: 'sticky', top: '65px', width : '100%', left: 0, zIndex: '99', height: '100%', width: '100%', gap : '10px'}}>
                       <span><b>{number}</b> phòng tổng giá</span>
-                      <span style={{fontSize: '19px'}}><b>VND {priceTotal.toLocaleString('en-US')}</b></span>
+                      <span style={{fontSize: '19px'}}><b>VND {(priceTotal*calculateDateDifference(date[0].startDate, date[0].endDate)).toLocaleString('en-US')}</b></span>
                       <span style={{fontSize: '13px', color : 'gray'}}>Đã bao gồm thuế và phí</span>
                       <button style={{backgroundColor: '#0071c2', outline: 'none', cursor: 'pointer', padding: '10px 5px', border: 'none', borderRadius: '10px', color: 'white', fontWeight: '500', fontSize: '14px'}} onClick={()=>{handleBookRoom()}}>Tôi sẽ đặt</button>
                       <span>Bạn sẽ được chuyển sang bước kế tiếp</span>

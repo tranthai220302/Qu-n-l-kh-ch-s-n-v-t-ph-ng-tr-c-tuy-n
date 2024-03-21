@@ -34,19 +34,11 @@ const Navbar = () => {
             <FullscreenExitOutlinedIcon className="iconAdmin" />
           </div>
           <div className="itemAdmin">
-            <NotificationsNoneOutlinedIcon className="iconAdmin" />
-            <div className="counterAdmin">1</div>
-          </div>
-          <div className="itemAdmin">
-            <ChatBubbleOutlineOutlinedIcon className="iconAdmin" />
-            <div className="counterAdmin">2</div>
-          </div>
-          <div className="itemAdmin">
             <ListOutlinedIcon className="iconAdmin" />
           </div>
           <div className="itemAdmin">
             <img
-              src="https://images.pexels.com/photos/941693/pexels-photo-941693.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500"
+              src="https://img.freepik.com/premium-vector/user-profile-icon-flat-style-member-avatar-vector-illustration-isolated-background-human-permission-sign-business-concept_157943-15752.jpg?size=338&ext=jpg&ga=GA1.1.735520172.1710892800&semt=ais"
               alt=""
               className="avatarAdmin"
             />

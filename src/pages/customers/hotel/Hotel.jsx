@@ -256,9 +256,6 @@ const Hotel = () => {
                 <span>
                 Nằm ngay trung tâm , chỗ nghỉ này có điểm vị trí tuyệt vời - 9,8!
                 </span>
-                <h2>
-                  <b>$945</b> (9 nights)
-                </h2>
                 <button onClick={handleBookNowClick}>Đặt phòng ngay!</button>
               </div>
             </div>

@@ -153,16 +153,7 @@ const NavbarOwner = ({user, setUser, type, newValue}) => {
                   <MenuItem onClick={handleProfile}>
                     <Avatar /> Tài khoản của tôi
                   </MenuItem>
-                  <MenuItem onClick={handleRoomBook}>
-                    <Avatar><VillaIcon/></Avatar> Phòng đã đặt
-                  </MenuItem>
                   <Divider />
-                  <MenuItem onClick={handleHotel}>
-                    <ListItemIcon>
-                      <FavoriteIcon fontSize="small"/>
-                    </ListItemIcon>
-                    Đã lưu
-                  </MenuItem>
                   <MenuItem onClick={handleLogout}>
                     <ListItemIcon>
                       <Logout fontSize="small" />

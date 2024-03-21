@@ -5,10 +5,12 @@ import { Keyboard, Pagination, Navigation } from 'swiper/modules';
 import { getData } from "../../../ults/getData";
 import Skeleton from '@mui/material/Skeleton';
 import Rating from '@mui/material/Rating';
+import { useNavigate } from "react-router-dom";
 const FeaturedProperties = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(false);
   const [data, setData] = useState([]);
+  const navigate = useNavigate();
   useEffect(() => {
     const fetchData = async () => {
         try {
@@ -133,7 +135,7 @@ const FeaturedProperties = () => {
       >
         {
           data && data.length > 0 && data.map((item)=>(
-            <SwiperSlide key={item.id}>
+            <SwiperSlide key={item.id} onClick={()=>{navigate(`/hotels/${item.id}`)}}>
             <div className="fpItem" key={item.id}>
               <img
                 src={item.Images.length > 0 ? item.Images[0].filename : "https://cf.bstatic.com/xdata/images/hotel/max1280x900/215955381.jpg?k=ff739d1d9e0c8e233f78ee3ced82743ef0355e925df8db7135d83b55a00ca07a&o=&hp=1"}

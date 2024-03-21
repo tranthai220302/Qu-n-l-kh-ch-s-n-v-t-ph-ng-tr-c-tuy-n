@@ -20,6 +20,8 @@ import Alert from '@mui/material/Alert';
 import { Button, CardActionArea, CardActions } from '@mui/material';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import { format } from 'date-fns'
+import ModalRoomCustomer from '../../../compoments/customer/ModalRoomCustomer/ModalRoomCustomer'
+import { useNavigate } from 'react-router-dom'
 const RoomBooking = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(false);
@@ -66,6 +68,7 @@ const RoomBooking = () => {
           setError(error.response.data);
         })
     }
+    const navigate = useNavigate()
   return (
     <div>
         <Navbar />
@@ -113,7 +116,7 @@ const RoomBooking = () => {
                         data && data.map((item,i)=>(
                             <SwiperSlide key={i}>
                                 <Card sx={{ width : '100%', display: 'flex' }}>
-                                    <CardActionArea sx={{width : '50%'}}>
+                                    <CardActionArea sx={{width : '50%'}} onClick={()=>{navigate(`/hotels/${item.price[0].Room.Hotel.id}`)}}>
                                         <CardMedia
                                         component="img"
                                         height="140"
@@ -164,7 +167,7 @@ const RoomBooking = () => {
                                                     <td style={{color: 'red', cursor: 'pointer'}}>Xác nhận</td>
                                                 </tr>
                                             </table>
-                                            <div className='push' style={{textAlign: 'center', fontSize : '13px', fontWeight: '600', cursor: 'pointer', display: 'flex', alignItems: 'center', gap :'0px', justifyContent: 'flex-end'}}><span>Xem thêm</span> <KeyboardArrowDownIcon style={{fontSize : '15px'}} /></div>
+                                            <ModalRoomCustomer data = {item}/>
                                         </div>
                                     </CardActions>
                                     </Card>

@@ -44,15 +44,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/admin">
-            <Route index element={
-            loggedInUser?.idRole == 3 ? (
-                <Home/>
-              ) : loggedInUser?.idRole == 2 ? (
-                <Navigate to="/hotelAdmin" />
-              ) : (
-                <Navigate to="/" />
-              )
-            } />
+            <Route index element={<Home/>} />
             <Route path="login" element={<Login />} />
             <Route path="hotelowner" element={<HotelOwner />} />
             <Route path="service" element={<Service />} />

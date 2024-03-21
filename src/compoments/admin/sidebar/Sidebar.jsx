@@ -47,7 +47,7 @@ const Sidebar = () => {
           </Backdrop>
       <div className="topSideBar">
         <Link to="/admin" style={{ textDecoration: "none" }}>
-          <span className="logo">lamadmin</span>
+          <span className="logo">HaruBooking</span>
         </Link>
       </div>
       <hr />

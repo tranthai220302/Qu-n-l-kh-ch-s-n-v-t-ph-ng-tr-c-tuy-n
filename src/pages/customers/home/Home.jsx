@@ -10,8 +10,10 @@ import Favourite from "../../../compoments/customer/addressFavourite/Favourite";
 import "./home.css";
 import ChatraIntegration from "../../../compoments/customer/Chatra/ChatraIntegration";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
+  const navigate = useNavigate()
   const [userCurrent, setCurrentUser] = useState(JSON.parse(localStorage.getItem('currentUser')));
   const [setup1, Setsetup] = useState({
     agentId : "bAhfyZhaKkkGZxdQG",
@@ -27,7 +29,6 @@ const Home = () => {
     name : userCurrent?.name,
     email : userCurrent?.email
   }
-  console.log(userCurrent)
   return (
     <div className="container">
       <Navbar user = {userCurrent} setUser = {setCurrentUser}/>

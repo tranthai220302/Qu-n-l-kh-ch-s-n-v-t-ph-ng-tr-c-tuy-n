@@ -4,7 +4,7 @@ import Typography from '@mui/material/Typography';
 import Rating from '@mui/material/Rating';
 import { Stack } from '@mui/material';
 import PoolIcon from '@mui/icons-material/Pool';
-import { format } from 'date-fns';
+import { differenceInDays, format } from 'date-fns';
 import newRequest from '../../../ults/newRequest';
 import { useSelector, useDispatch } from 'react-redux';
 import Skeleton from '@mui/material/Skeleton';
@@ -20,6 +20,9 @@ const RoomBook = ({data, id}) => {
     const [n, setN] = useState(0)
     const [total, setTotal] = useState(0)
     const [error, setError] = useState(false);
+    const calculateDateDifference = () => {
+        return differenceInDays(new Date(dateEnd[0].endDate), new Date(dateEnd[0].startDate)) + 1;
+      };
     const getData = () =>{
         setIsLoading(true);
         newRequest.get(`/hotel/${id}`).then((res)=>{
@@ -128,7 +131,7 @@ const RoomBook = ({data, id}) => {
                     <table>
                         <tr>
                             <td style={{fontSize : '15px', fontWeight : '300'}}>Giá gốc</td>
-                            <td style={{fontWeight : 400, color : 'red'}}>VND {price.toLocaleString('en-US')}</td>
+                            <td style={{fontWeight : 400, color : 'red'}}>VND {(price*calculateDateDifference()).toLocaleString('en-US')}</td>
                         </tr>
                         <tr>
                             <td style={{fontSize : '15px', fontWeight : '300'}}>Giảm giá</td>
@@ -136,7 +139,7 @@ const RoomBook = ({data, id}) => {
                         </tr>
                         <tr>
                             <td style={{fontSize : '15px', fontWeight : '300'}}>Bookinh thanh toán</td>
-                            <td style={{fontWeight : 400, color : 'red'}}>VND {price.toLocaleString('en-US')}</td>
+                            <td style={{fontWeight : 400, color : 'red'}}>VND {(price*calculateDateDifference()).toLocaleString('en-US')}</td>
                         </tr>
                     </table>
                     </Stack>
