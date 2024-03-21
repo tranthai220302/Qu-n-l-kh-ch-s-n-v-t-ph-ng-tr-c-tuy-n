@@ -1,4 +1,4 @@
-import { Op } from "sequelize";
+import { Op, Sequelize } from "sequelize";
 import createError from "../../ultis/createError.js";
 import db from "../Entitys/index.js";
 import dotenv from 'dotenv';
@@ -73,28 +73,25 @@ export const getAddress = async()=>{
         const client = algoliasearch(process.env.ID, process.env.API_KEY)
         const index = client.initIndex(process.env.Index)
         const address = await db.address.findAll({
-            attributes: [
-                'province', 'id'
-            ],
             include: [{
                 model: db.hotel,
-                where : {
-                    id : {
-                        [Op.not] : null
-                    }
+                where: {
+                    isConfirm : 1
                 },
                 attributes: ['name']
             }],
-            group: ['province'] 
+            group: ['province']
         });
+        
         let arr = [];
         address.map(item => {
+            console.log(item.province, item.Hotel.name)
             arr.push({
                 objectID : item.id.toString(),
                 name : item.province
             })
         });
-        await index.saveObjects(arr,{ autoGenerateObjectIDIfNotExist: true })
+        await index.replaceAllObjects(arr);
         console.log('Dữ liệu đã được đồng bộ lên Algolia thành công!');
     } catch (error) {
         console.error('Lỗi khi đồng bộ dữ liệu lên Algolia:', error);

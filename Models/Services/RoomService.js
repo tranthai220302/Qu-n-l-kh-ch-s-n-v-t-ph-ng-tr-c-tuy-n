@@ -1,7 +1,9 @@
 
+import { format } from "date-fns";
 import createError from "../../ultis/createError.js";
 import db from "../Entitys/index.js";
 import { Op} from "sequelize";
+import { calculateDateDifference } from "./BookingService.js";
 export const createRoomServices = async(data, idHotel) =>{
     try {
         const {items, imgs, priceRoom,category, ...res} = data;
@@ -159,15 +161,26 @@ export const getRoomBookServices = async(CustomerId) =>{
         const user = await db.user.findByPk(CustomerId,{
             include : {model: db.customer}
         })
+        const date = format(new Date(), 'yyyy-MM-dd');
         if(!user) return createError(400, 'Không tìm thấy người dùng!')
         const booking = await db.booking.findAll({
             where : {
-                CustomerId : user.Customer.id
+                [Op.and] : [
+                    {CustomerId : user.Customer.id},
+                    {dateCheckIn  : {
+                        [Op.gte] : date
+                    }}
+                ]
              },
             include : [
                 {
                     model : db.price,
                     as : 'price',
+                    where : {
+                        id : {
+                            [Op.not] : null
+                        }
+                    },
                     include : {
                         model : db.room,
                         include : [
@@ -249,6 +262,71 @@ export const getRoomByHotelOwnerServices = async(HotelOwnerId, date) =>{
             })
         })
         return data;
+    } catch (error) {
+        return error;
+    }
+}
+export const cancelRoomService = async (id, BookingId, PriceRoomId) =>{
+    try {
+        const customer = await db.customer.findOne({
+            include : [
+                {
+                    model : db.user,
+                    where : {id}
+                }
+            ]
+        })
+        const booking = await db.booking.findOne({
+            where : {
+                [Op.and] : [
+                    {CustomerId : customer.id},
+                    {id : BookingId}
+                ]
+            },
+            include : [
+                {
+                    model : db.hotel,
+                    attributes : ['name', 'isCancel']
+                },
+                {
+                    model : db.price,
+                    as : 'price',
+                    where : {
+                        id :PriceRoomId,
+                    }
+                }
+            ]
+        });
+        if(!booking) return createError(400, 'Huỷ phòng không thành công!')
+        const currentTime = new Date(); // Thời điểm hiện tại
+        const bookingCreationTime = booking.createdAt
+        const timeDifference = currentTime - bookingCreationTime;
+        console.log(timeDifference)
+        const hoursDifference = timeDifference / (1000 * 60 * 60);
+        console.log(hoursDifference)
+        if (hoursDifference <= 24) {
+            return createError(400, 'Huỷ phòng không thành công! Phải hủy ít nhất sau 24 giờ kể từ thời điểm đặt phòng.');
+        }
+        if(booking.Hotel.isCancel == false) return createError(400, 'Khách sạn không phục vụ dịch vụ trả phòng!');
+        await db.bookingPriceRoom.destroy({
+            where : {
+                [Op.and] : [
+                    {BookingId :BookingId},
+                    {PriceRoomId}
+                ]
+            }
+        })
+        const priceTotal = booking.priceTotal - booking.price[0].price*booking.price[0].BookingPriceRoom.numRoom*calculateDateDifference(booking.dateCheckOut, booking.dateCheckIn);
+        const bookingCheck = await db.booking.findByPk(BookingId);
+        if(bookingCheck.price.length == 0){
+            await db.booking.destroy({where : {id : BookingId}})
+        }
+        await db.booking.update({
+            priceTotal : priceTotal
+        })
+        return {
+            message : "Huỷ phòng thành công!"
+        }
     } catch (error) {
         return error;
     }

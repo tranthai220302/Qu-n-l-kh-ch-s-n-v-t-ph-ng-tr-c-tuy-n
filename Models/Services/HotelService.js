@@ -277,7 +277,7 @@ export const getHotelByQueryService = async(wherePrice,queryDate, queryAddress, 
                                     where: queryDate
                                 }
                             ]
-                        },
+                          },
                         {
                             model : db.item,
                             as : 'Item'

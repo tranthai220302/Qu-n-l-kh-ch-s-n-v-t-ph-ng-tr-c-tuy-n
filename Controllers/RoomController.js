@@ -1,4 +1,4 @@
-import { createRoomServices, getRoomBookServices, getRoomByHotelOwnerServices, getRoomEmptyService } from "../Models/Services/RoomService.js";
+import { cancelRoomService, createRoomServices, getRoomBookServices, getRoomByHotelOwnerServices, getRoomEmptyService } from "../Models/Services/RoomService.js";
 import createError from "../ultis/createError.js";
 
 export const createRoom = async(req, res, next)=>{
@@ -39,5 +39,14 @@ export const getRoomByHotelOwner = async(req, res, next) =>{
         return res.status(200).send(room)
     } catch (error) {
         next(error)
+    }
+}
+export const cancelRoom = async(req, res, next) =>{
+    try {
+        const room = await cancelRoomService(req.id, req.body.BookingId, req.params.idPrice);
+        if(room instanceof Error) return next(room);
+        res.status(200).send(room)
+    } catch (error) {
+        next(error);
     }
 }

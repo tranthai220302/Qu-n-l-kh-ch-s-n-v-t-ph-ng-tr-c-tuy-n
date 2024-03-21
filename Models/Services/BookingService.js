@@ -5,6 +5,7 @@ import dotenv from 'dotenv'
 import sendEmail from "../../ultis/sendEmail.js";
 import { getHotelByIdServices } from "./HotelService.js";
 import { Op } from "sequelize";
+import { differenceInDays } from "date-fns";
 dotenv.config()
 const createPinCode = ()=>{
     let pin = Math.floor(Math.random()*1000);
@@ -16,6 +17,9 @@ const createPinCode = ()=>{
     }
     return pin;
 }
+export const calculateDateDifference = (end, start) => {
+    return differenceInDays(new Date(end), new Date(start)) + 1;
+};
 export const createBookingService = async (data1, id, HotelId) =>{
     try {
         const {selectedRooms, body, inforUser, address, ...data} = data1;
@@ -23,7 +27,7 @@ export const createBookingService = async (data1, id, HotelId) =>{
         let priceTotal = 0;
         let pricesRoom = []
         for(let i = 0 ; i < selectedRooms.length; i++){
-            priceTotal += selectedRooms[i].price;
+            priceTotal += selectedRooms[i].price*calculateDateDifference(body.dateCheckOut, body.dateCheckIn);
             const priceRoom = await db.price.findByPk(selectedRooms[i].id,{
                 include : [
                     {
